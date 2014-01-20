@@ -1,0 +1,180 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Channel-i</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <style>
+    body {
+        width: 400px;
+        min-height: 480px;
+        overflow-x: hidden;
+        background-color: #fcfcfc;
+        font-family:'Lato';
+    }
+    .field {
+        width: 360px;
+        border-radius: 3px;
+        height: 30px;
+        border: 1px solid #D8D8D8;
+        padding: 0 10px;
+        outline: none;
+        color: #aaa;
+        margin-top:10px;
+        margin-left: 10px;
+        z-index:0;
+        font-size: 16px;
+    }
+    .field:focus {
+        outline:1px solid #ddd;
+    }
+    #main {
+        width: 390px;
+        overflow: auto;
+        padding: 10px 0;
+    }
+    img {
+        width:35px;
+        height: 35px;
+        margin-left: 4px;
+    }
+    .text {
+        color: #999;
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+    .links {
+        overflow:auto;
+        width: 185px;
+        cursor:pointer;
+        border-bottom: 1px solid #eee;
+        float:left;
+        padding-top: 6px;
+        padding-bottom: 2px;
+        margin-left: 10px;
+    }
+    .links:hover {
+        background-color: #F0F0F0;
+    }
+    .link1 {
+        border-top: 1px solid #eee;
+    }
+    .links div {
+        float:left;
+    }
+    #submit {
+        background: url(submit.png) no-repeat;
+        border: none;
+        width: 38px;
+        height: 62px;
+        float: right;
+        margin-top: -67px;
+        z-index: 100;
+        position:relative;
+        cursor:pointer;
+        outline:none;
+        opacity: 0.9;
+    }
+    #submit:hover {
+        opacity:1;
+    }
+
+    ::-webkit-input-placeholder {
+   color: #ccc;
+}
+    </style>
+
+    <script src="popup.js"></script>
+</head>
+
+<body>
+    <form>
+        <input type="text" class="field" name="" value="" placeholder="Username" required/>
+        <input type="password" class="field" name="" value="" placeholder="Password" required/>
+        <input type="submit" id="submit" name="" value="">
+    </form>
+    <div id="main">
+        <div class="links link1">
+            <div class="img">
+                <img src="grades.png" alt="grades" />
+            </div>
+            <div class="text">Grades Online</div>
+        </div>
+        <div class="links link1">
+            <div class="img">
+                <img src="buysell.png" alt="buysell">
+            </div>
+            <div class="text">Buy & Sell</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="downloadsoftware.png" alt="Download Softwares">
+            </div>
+            <div class="text">Softwares</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="grades.png">
+            </div>
+            <div class="text">Grades Online</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="kriti.png">
+            </div>
+            <div class="text">Kriti</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="lectut.png">
+            </div>
+            <div class="text">LecTut</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="lostfound.png">
+            </div>
+            <div class="text">Lost & found</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="messmenu.png">
+            </div>
+            <div class="text">Mess Menu</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="noticeboard.png">
+            </div>
+            <div class="text">Notice Board</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="placement.png">
+            </div>
+            <div class="text">Placement Online</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="pplsearch.png">
+            </div>
+            <div class="text">People Search</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="research.png">
+            </div>
+            <div class="text">Research Asst.</div>
+        </div>
+        <div class="links">
+            <div class="img">
+                <img src="Thinktank.png">
+            </div>
+            <div class="text">Thinktank</div>
+        </div>
+
+    </div>
+    <a href="https://www.facebook.com/IMGIITRoorkee" target="_blank"><img style="position: absolute;right: 14px;bottom: 10px;width:40px;height: 40px;" src="img_logo.jpg"></a>
+</body>
+
+</html>
