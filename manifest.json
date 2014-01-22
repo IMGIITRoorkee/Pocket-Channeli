@@ -7,7 +7,8 @@
 
   "permissions": [
     "https://secure.flickr.com/",
-    "*://192.168.121.147:60002/hogwarts/"
+    "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
+    "*/channeli.in/hogwarts/"
   ],
   "browser_action": {
     "default_icon": "icon.png",
