@@ -7,7 +7,6 @@
 
   "permissions": [
     "https://secure.flickr.com/",
-    "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
     "*/channeli.in/hogwarts/"
   ],
   "browser_action": {
