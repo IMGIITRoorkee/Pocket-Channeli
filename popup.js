@@ -1,7 +1,7 @@
 
 $("#login_form").submit(function(e){
   e.preventDefault();
-  var url = "";
+  var url = "https://channeli.in/hogwarts";
   var data = $("#login_form").serialize();
   $.post(url, data, function(res){
     if(res == "OK")
@@ -20,6 +20,7 @@ $("#login_form").submit(function(e){
 
 
 $(document).ready(function(){
+  var url = "https://channeli.in/hogwarts";
   $.post(url, function(res){
    if(res == "OK")
     {
