@@ -117,11 +117,16 @@ button:active{
 </head>
 
 <body>
-    <!--<form>
-        <input type="text" class="field" name="" value="" placeholder="Username" required/>
-        <input type="password" class="field" name="" value="" placeholder="Password" required/>
-        <input type="submit" id="submit" name="" value="">
-    </form>-->
+    <div id="message">
+      <!-- Warning/Info message area -->
+    </div>
+    <div id="login">
+      <form id="login_form" method="POST">
+          <input type="text" class="field" name="username" value="" placeholder="Username" required/>
+          <input type="password" class="field" name="password" value="" placeholder="Password" required/>
+          <input type="submit" id="submit" value="Submit">
+      </form>
+    </div>
     <div id="loggedin">
     	You are currently logged into Channel-i <br/>
     	<button>Logout</button>
@@ -235,6 +240,7 @@ button:active{
     </div>
     
     <a href="https://www.facebook.com/IMGIITRoorkee" target="_blank"><img style="position: absolute;right: 14px;bottom: 10px;width:40px;height: 40px;" src="img_logo.png"></a>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </body>
 
 </html>
