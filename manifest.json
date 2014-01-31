@@ -5,10 +5,18 @@
   "description": "This extension provides easy links to all the apps of Channel-i",
   "version": "1.0",
 
+/*
+	"content_scripts": [{
+		"matches": ["http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/*"],
+    "js": ["jquery.min.js"]
+	}],
+*/
   "permissions": [
+    "cookies",
     "https://secure.flickr.com/",
-    "*/channeli.in/hogwarts"
+    "http://localhost:8000/ajax/check-signin/"
   ],
+  
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",

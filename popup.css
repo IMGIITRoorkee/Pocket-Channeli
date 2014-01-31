@@ -1,0 +1,106 @@
+body {
+    width: 400px;
+    min-height: 480px;
+    overflow-x: hidden;
+    background-color: #fcfcfc;
+    font-family:'Lato';
+}
+.field {
+    width: 360px;
+    border-radius: 3px;
+    height: 30px;
+    border: 1px solid #D8D8D8;
+    padding: 0 10px;
+    outline: none;
+    color: #aaa;
+    margin-top:10px;
+    margin-left: 10px;
+    z-index:0;
+    font-size: 16px;
+}
+.field:focus {
+    outline:1px solid #ddd;
+}
+#main {
+    width: 390px;
+    overflow: auto;
+    padding: 10px 0;
+}
+img {
+    width:35px;
+    height: 35px;
+    margin-left: 4px;
+}
+.text {
+    color: #999;
+    font-size: 16px;
+    padding: 6px 10px;
+}
+.links {
+    overflow:auto;
+    width: 185px;
+    cursor:pointer;
+    border-bottom: 1px solid #eee;
+    float:left;
+    padding-top: 6px;
+    padding-bottom: 2px;
+    margin-left: 10px;
+}
+.links:hover {
+    background-color: #F0F0F0;
+}
+.link1 {
+    border-top: 1px solid #eee;
+}
+.links div {
+    float:left;
+}
+#submit {
+    background: url(submit.png) no-repeat;
+    border: none;
+    width: 38px;
+    height: 62px;
+    float: right;
+    margin-top: -67px;
+    z-index: 100;
+    position:relative;
+    cursor:pointer;
+    outline:none;
+    opacity: 0.9;
+}
+#submit:hover {
+    opacity:1;
+}
+
+#loggedin{
+	width: 380px;
+	margin-left: 10px;
+	text-align: center;
+	color: #555;
+	padding: 15px 10px;
+}
+
+::-webkit-input-placeholder {
+ 	color: #ccc;
+}
+button{
+	border: none;
+	color: #fff;
+	background-color: cornflowerblue;
+	padding: 5px 20px;
+	border-radius: 3px;
+	font-size: 16px;
+	margin: 10px;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 1px 1px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 1px 1px 0px rgba(50, 50, 50, 0.75);
+	cursor:pointer;
+}
+
+button:hover{
+	background: rgb(124, 164, 236);
+}
+
+button:active{
+	background-color: rgb(78, 129, 223);
+}
