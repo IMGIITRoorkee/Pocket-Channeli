@@ -8,9 +8,9 @@
   "permissions": [
     "cookies",
     "https://secure.flickr.com/",
-    "http://192.168.121.147:60000/check-signin/"
+    "http://192.168.121.147/check-signin/"
   ],
-  
+
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup.html",
