@@ -39,11 +39,11 @@ $(document).ready(function(){
 	////////////////////////////////////////////////////////////////////
 	*/
 	
-	chrome.cookies.get({url: "http://192.168.121.147:60000", name: "PHPSESSID"}, function(cookie){  
+	chrome.cookies.get({url: "http://192.168.121.147", name: "PHPSESSID"}, function(cookie){  
 	  if(cookie){
 	    var sid = cookie.value;
 	    
-	    var url = "http://192.168.121.147:60000/check-session/";
+	    var url = "http://192.168.121.147/check-session/";
 			var data = {sid: sid}
 			
 			$.post(url, data, function(res){
@@ -97,11 +97,11 @@ $(document).ready(function(){
 });
 
 $("#logout_btn").on("click", function(){
-  chrome.cookies.get({url: "http://192.168.121.147:60000", name: "PHPSESSID"}, function(cookie){  
+  chrome.cookies.get({url: "http://192.168.121.147", name: "PHPSESSID"}, function(cookie){  
 	  if(cookie){
 	    var sid = cookie.value;
 	    
-	    var url = "http://192.168.121.147:60000/logout-user/";
+	    var url = "http://192.168.121.147/logout-user/";
 			var data = {sid: sid}
 			
 			$.post(url, data, function(res){
@@ -147,7 +147,7 @@ $("#logout_btn").on("click", function(){
 $("#login_form").submit(function(e){
   e.preventDefault();
   
-  var url = "http://192.168.121.147:60000/check-login/";
+  var url = "http://192.168.121.147/check-login/";
   var data = $("#login_form").serialize();
   $.post(url, data, function(res){
   	console.log(res);
