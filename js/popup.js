@@ -1,5 +1,7 @@
 $(document).ready(function(){	
 
+var Domain = "http://192.168.121.147";
+
 	function getCookies(domain, name) {
 		chrome.cookies.get({url: domain, name: name}, function(cookie){  
 		  if(cookie){
@@ -39,11 +41,11 @@ $(document).ready(function(){
 	////////////////////////////////////////////////////////////////////
 	*/
 	
-	chrome.cookies.get({url: "http://192.168.121.147", name: "PHPSESSID"}, function(cookie){  
+	chrome.cookies.get({url: Domain, name: "PHPSESSID"}, function(cookie){  
 	  if(cookie){
 	    var sid = cookie.value;
 	    
-	    var url = "http://192.168.121.147/check-session/";
+	    var url = Domain + "/check-session/";
 			var data = {sid: sid}
 			
 			$.post(url, data, function(res){
@@ -97,11 +99,11 @@ $(document).ready(function(){
 });
 
 $("#logout_btn").on("click", function(){
-  chrome.cookies.get({url: "http://192.168.121.147", name: "PHPSESSID"}, function(cookie){  
+  chrome.cookies.get({url: Domain, name: "PHPSESSID"}, function(cookie){  
 	  if(cookie){
 	    var sid = cookie.value;
 	    
-	    var url = "http://192.168.121.147/logout-user/";
+	    var url = Domain + "/logout-user/";
 			var data = {sid: sid}
 			
 			$.post(url, data, function(res){
@@ -147,7 +149,7 @@ $("#logout_btn").on("click", function(){
 $("#login_form").submit(function(e){
   e.preventDefault();
   
-  var url = "http://192.168.121.147/check-login/";
+  var url = Domain + "/check-login/";
   var data = $("#login_form").serialize();
   $.post(url, data, function(res){
   	console.log(res);
