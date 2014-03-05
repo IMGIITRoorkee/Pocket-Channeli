@@ -56,7 +56,7 @@ img {
     float:left;
 }
 #submit {
-    background: url(submit.png) no-repeat;
+    background: url(../images/submit.png) no-repeat;
     border: none;
     width: 38px;
     height: 62px;
