@@ -13,7 +13,6 @@ var Domain = "http://192.168.121.147";
       $("#login").hide();
       $("#message").hide();
       $("#loggedin").show();
-      $("#main").show();
     }
     else if(res.msg == "NO")
     {
@@ -21,7 +20,6 @@ var Domain = "http://192.168.121.147";
       $("#message").hide();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
     else if(res.msg == "FAILURE")
     {
@@ -31,7 +29,6 @@ var Domain = "http://192.168.121.147";
       $("#login").show();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
     else{
       $("#message").show();
@@ -40,7 +37,6 @@ var Domain = "http://192.168.121.147";
       $("#login").hide();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
   });
 
@@ -54,7 +50,6 @@ $("#logout_btn").on("click", function(){
       $("#message").hide();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
     else if(res.msg == "FAILURE")
     {
@@ -62,7 +57,6 @@ $("#logout_btn").on("click", function(){
       $("#message").hide();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
     else{
       $("#message").show();
@@ -71,7 +65,6 @@ $("#logout_btn").on("click", function(){
       $("#login").hide();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
   });
 });
@@ -90,7 +83,6 @@ $("#login_form").submit(function(e){
       $("#login").hide();
       $("#message").hide();
       $("#loggedin").show();
-      $("#main").show();
     }
     else if(res.msg == "NO")
     {
@@ -100,7 +92,6 @@ $("#login_form").submit(function(e){
       $("#login").show();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
     else if(res.msg == "FAILURE")
     {
@@ -110,7 +101,6 @@ $("#login_form").submit(function(e){
       $("#login").show();
       $("#user_box").hide();
       $("#loggedin").hide();
-      $("#main").hide();
     }
   });
 });
