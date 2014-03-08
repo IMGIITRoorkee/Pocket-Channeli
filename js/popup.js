@@ -1,7 +1,7 @@
 $(document).ready(function(){	
 
-  var Domain = "http://192.168.121.147";
-  var Host = "192.168.121.147"
+  var Domain = "https://channeli.in";
+  var Host = "channeli.in"
 
   /*
   var format_name = function(name){
