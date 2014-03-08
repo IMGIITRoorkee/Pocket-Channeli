@@ -21,6 +21,13 @@ body {
     background-color: #fcfcfc;
     font-family:'Lato';
 }
+#loader img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -10px;
+}
 #message {
     padding: 5px;
     text-align: center;
@@ -33,7 +40,7 @@ body {
     border: 1px solid #D8D8D8;
     padding: 0 10px;
     outline: none;
-    color: #aaa;
+    color: #777;
     margin-top:10px;
     margin-left: 10px;
     z-index:0;
@@ -70,7 +77,7 @@ body {
     height: 84px;
 }
 p#user_name {
-    width: 278px;
+    width: 190px;
     margin-left: -15px;
     white-space: nowrap;
     overflow: hidden;
@@ -81,6 +88,10 @@ p#user_info {
     padding-top: 7px;
     margin-left: -14px;
     color: #797979;
+    width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .img img {
     width:35px;
@@ -136,8 +147,8 @@ p#user_info {
     /* float: right; */
     /* margin-top: -43px; */
     position: absolute;
-    right: 6px;
-    top: 45px;    
+    right: 2px;
+    top: 4px;    
 }
 
 ::-webkit-input-placeholder {

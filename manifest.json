@@ -2,12 +2,11 @@
   "manifest_version": 2,
 
   "name": "Channel-i",
-  "description": "This extension provides easy links to all the apps of Channel-i",
+  "description": "Channel i is built around the idea that you must be close to what you need. Stay close, Stay updated.",
   "version": "1.0",
 
   "permissions": [
-    "cookies",
-    "https://secure.flickr.com/",
+    "tabs",
     "http://192.168.121.147/*"
   ],
 

@@ -1,7 +1,8 @@
 $(document).ready(function(){	
 
   var Domain = "http://192.168.121.147";
-	
+  var Host = "192.168.121.147"
+
   /*
   var format_name = function(name){
     //return name
@@ -9,11 +10,21 @@ $(document).ready(function(){
     return parts;
   }  
   */
+
+  var getDomainName = function (href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l.hostname;
+  }
+ 
   
   //$(body).show();
+
   var url = Domain + "/check-session/";
+  
   $.post(url, function(res){
     console.log(res);
+    $("#loader").hide();
     if(res.msg == "YES")
     {
       $("#login").hide();
@@ -48,7 +59,7 @@ $(document).ready(function(){
       $("#main").show();
     }
   });
-
+  
 
 
 $("#logout_btn").on("click", function(){
@@ -63,6 +74,21 @@ $("#logout_btn").on("click", function(){
       $("#main").show();
       $("#username_field").val('');
       $("#password_field").val('');
+
+      chrome.tabs.query({}, function (tabs) {
+        var _tabs = [];
+        for (var i = 0; i < tabs.length; i++) {
+          console.log(getDomainName(tabs[i].url));
+          if(getDomainName(tabs[i].url) == Host)
+          {
+            _tabs.push(tabs[i].id);
+          }
+        }
+        for(var j = 0; j < _tabs.length; j++)
+        {
+          chrome.tabs.reload(_tabs[j]);
+        }
+      });
     }
     else if(res.msg == "FAILURE")
     {
@@ -96,6 +122,21 @@ $("#login_form").submit(function(e){
     	$("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
           "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
       $("#main").show();
+     
+      chrome.tabs.query({}, function (tabs) {
+        var _tabs = [];
+        for (var i = 0; i < tabs.length; i++) {
+          console.log(getDomainName(tabs[i].url));
+          if(getDomainName(tabs[i].url) == Host)
+          {
+            _tabs.push(tabs[i].id);
+          }
+        }
+        for(var j = 0; j < _tabs.length; j++)
+        {
+          chrome.tabs.reload(_tabs[j]);
+        }
+      });
     }
     else if(res.msg == "NO")
     {
