@@ -1,9 +1,30 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/lato-reg-webfont.eot');
+    src: url('../fonys/lato-reg-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lato-reg-webfont.woff') format('woff'),
+         url('../fonts/lato-reg-webfont.ttf') format('truetype'),
+         url('../fonts/lato-reg-webfont.svg#latoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    outline: 0px;
+}
 body {
     width: 400px;
     min-height: 480px;
     overflow-x: hidden;
     background-color: #fcfcfc;
     font-family:'Lato';
+}
+#message {
+    padding: 5px;
+    text-align: center;
+    color: rgb(253, 106, 106);
 }
 .field {
     width: 360px;
@@ -21,12 +42,47 @@ body {
 .field:focus {
     outline:1px solid #ddd;
 }
+#profile_page {
+    vertical-align: middle;
+}
+#profile_box div {
+    float: left;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+.profile_pic {
+   height: 65px;
+}
 #main {
     width: 390px;
     overflow: auto;
     padding: 10px 0;
 }
-img {
+#user_name_box {
+    color: #3988AD;
+    height: 60px;
+    font-size: 18px;
+    /* padding: 10px; */
+    /* padding-bottom: 0; */
+    padding-left: 15px; 
+}
+#user_box {
+    height: 84px;
+}
+p#user_name {
+    width: 278px;
+    margin-left: -15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+p#user_info {
+    font-size: 13px;
+    padding-top: 7px;
+    margin-left: -14px;
+    color: #797979;
+}
+.img img {
     width:35px;
     height: 35px;
     margin-left: 4px;
@@ -73,34 +129,40 @@ img {
 }
 
 #loggedin{
-	width: 380px;
-	margin-left: 10px;
-	text-align: center;
-	color: #555;
-	padding: 15px 10px;
+    text-align: center;
+    color: #555;
+    /* padding: 15px 10px; */
+    height: 45px;
+    /* float: right; */
+    /* margin-top: -43px; */
+    position: absolute;
+    right: 6px;
+    top: 45px;    
 }
 
 ::-webkit-input-placeholder {
- 	color: #ccc;
+ 	  color: #ccc;
 }
-button{
-	border: none;
-	color: #fff;
-	background-color: cornflowerblue;
-	padding: 5px 20px;
-	border-radius: 3px;
-	font-size: 16px;
-	margin: 10px;
-	-webkit-box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    0px 1px 1px 0px rgba(50, 50, 50, 0.75);
-	box-shadow:         0px 1px 1px 0px rgba(50, 50, 50, 0.75);
-	cursor:pointer;
+#logout_btn{
+    border: none;
+    color: #b1b1b1;
+    background-color: rgb(255, 255, 255);
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-size: 16px;
+    margin: 10px;
+    /* -webkit-box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75); */
+    -moz-box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75);
+    /* box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75); */
+    cursor: pointer;
+    border: 1px solid #D6D6D6;
 }
-
-button:hover{
-	background: rgb(124, 164, 236);
+#logout_btn:hover{
+    background: rgb(248, 248, 248);
 }
-
-button:active{
-	background-color: rgb(78, 129, 223);
+#footer {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding-top: 5px;
 }

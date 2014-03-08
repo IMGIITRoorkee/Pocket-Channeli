@@ -1,44 +1,55 @@
 $(document).ready(function(){	
 
-var Domain = "http://192.168.121.147";
-
+  var Domain = "http://192.168.121.147";
 	
+  /*
+  var format_name = function(name){
+    //return name
+    var parts = name.replace(' ', '<br>');
+    return parts;
+  }  
+  */
+  
+  //$(body).show();
   var url = Domain + "/check-session/";
   $.post(url, function(res){
     console.log(res);
     if(res.msg == "YES")
     {
-      $("#user_box").show();
-      $("#user_box").html("<p><i>"+res._name+"</i></p>");
       $("#login").hide();
       $("#message").hide();
-      $("#loggedin").show();
+      $("#user_box").show();
+      $("#main").show();
+      $("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
+        "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
     }
     else if(res.msg == "NO")
     {
-      $("#login").show();
       $("#message").hide();
       $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#login").show();
+      $("#main").show();
     }
     else if(res.msg == "FAILURE")
     {
+      $("#user_box").hide();
       $("#message").show();
       var msg = "Invalid request!";
-      $("#message").html("<p>"+msg+"</p>");
+      $("#message").html("<p>" + msg + "</p>");
       $("#login").show();
-      $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#main").show();
     }
     else{
-      $("#message").show();
-      var msg = "Error occured!";
-      $("#message").html("<p>"+msg+"</p>");
       $("#login").hide();
       $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#message").show();
+      var msg = "Error occured!";
+      $("#message").html("<p>" + msg + "</p>");
+      $("#main").show();
     }
   });
+
+
 
 $("#logout_btn").on("click", function(){
   var url = Domain + "/logout-user/";
@@ -46,61 +57,61 @@ $("#logout_btn").on("click", function(){
     console.log(res);
     if(res.msg == "OK")
     {
-      $("#login").show();
       $("#message").hide();
       $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#login").show();
+      $("#main").show();
     }
     else if(res.msg == "FAILURE")
     {
-      $("#login").show();
       $("#message").hide();
       $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#login").show();
+      $("#main").show();
     }
     else{
-      $("#message").show();
-      var msg = "Error occured!";
-      $("#message").html("<p>"+msg+"</p>");
       $("#login").hide();
       $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#message").show();
+      var msg = "Error occured!";
+      $("#message").html("<p>" + msg + "</p>");
+      $("#main").show();
     }
   });
 });
 
 $("#login_form").submit(function(e){
   e.preventDefault();
-  
   var url = Domain + "/check-login/";
   var data = $("#login_form").serialize();
   $.post(url, data, function(res){
   	console.log(res);
     if(res.msg == "YES")
     {
-    	$("#user_box").show();
-    	$("#user_box").html("<p><i>"+res._name+"</i></p>");
       $("#login").hide();
       $("#message").hide();
-      $("#loggedin").show();
+    	$("#user_box").show();
+    	$("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
+          "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
+      $("#main").show();
     }
     else if(res.msg == "NO")
     {
+      $("#user_box").hide();
       var msg = "Invalid Username or Password!";
       $("#message").show();
-      $("#message").html("<p>"+msg+"</p>");
+      $("#message").html("<p>" + msg + "</p>");
       $("#login").show();
-      $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#main").show();
     }
     else if(res.msg == "FAILURE")
     {
+      $("#user_box").hide();
       var msg = "Invalid request!";
       $("#message").show();
-      $("#message").html("<p>"+msg+"</p>");
+      $("#message").html("<p>" + msg + "</p>");
       $("#login").show();
-      $("#user_box").hide();
-      $("#loggedin").hide();
+      $("#main").show();
     }
   });
 });
