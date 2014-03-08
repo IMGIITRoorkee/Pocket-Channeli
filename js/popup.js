@@ -61,6 +61,8 @@ $("#logout_btn").on("click", function(){
       $("#user_box").hide();
       $("#login").show();
       $("#main").show();
+      $("#username_field").val('');
+      $("#password_field").val('');
     }
     else if(res.msg == "FAILURE")
     {
