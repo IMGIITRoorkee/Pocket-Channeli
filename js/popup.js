@@ -9,8 +9,14 @@ $(document).ready(function(){
     return l.hostname;
   }
   
-  var url = Domain + "/check-session/";
-  
+  /*
+  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  	alert(changeInfo.url);
+  });
+  */  
+
+  var url = Domain + "/check-session/"; 
+ 
   $.post(url, function(res){
     $("#loader").hide();
     if(res.msg == "YES")
