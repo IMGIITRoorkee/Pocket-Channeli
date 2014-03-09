@@ -14,7 +14,7 @@
   ],
 
   "browser_action": {
-    "default_icon": "images/icon16.png",
+    "default_icon": "images/icon_active.png",
     "default_popup": "popup.html",
     "default_name": "Channel-i"
     
