@@ -2,28 +2,16 @@ $(document).ready(function(){
 
   var Domain = "https://channeli.in";
   var Host = "channeli.in"
-
-  /*
-  var format_name = function(name){
-    //return name
-    var parts = name.replace(' ', '<br>');
-    return parts;
-  }  
-  */
-
+  
   var getDomainName = function (href) {
     var l = document.createElement("a");
     l.href = href;
     return l.hostname;
   }
  
-  
-  //$(body).show();
-
   var url = Domain + "/check-session/";
   
   $.post(url, function(res){
-    console.log(res);
     $("#loader").hide();
     if(res.msg == "YES")
     {
@@ -60,12 +48,9 @@ $(document).ready(function(){
     }
   });
   
-
-
 $("#logout_btn").on("click", function(){
   var url = Domain + "/logout-user/";
   $.post(url, function(res){
-    console.log(res);
     if(res.msg == "OK")
     {
       $("#message").hide();
@@ -78,7 +63,6 @@ $("#logout_btn").on("click", function(){
       chrome.tabs.query({}, function (tabs) {
         var _tabs = [];
         for (var i = 0; i < tabs.length; i++) {
-          console.log(getDomainName(tabs[i].url));
           if(getDomainName(tabs[i].url) == Host)
           {
             _tabs.push(tabs[i].id);
@@ -113,7 +97,6 @@ $("#login_form").submit(function(e){
   var url = Domain + "/check-login/";
   var data = $("#login_form").serialize();
   $.post(url, data, function(res){
-  	console.log(res);
     if(res.msg == "YES")
     {
       $("#login").hide();
@@ -126,7 +109,6 @@ $("#login_form").submit(function(e){
       chrome.tabs.query({}, function (tabs) {
         var _tabs = [];
         for (var i = 0; i < tabs.length; i++) {
-          console.log(getDomainName(tabs[i].url));
           if(getDomainName(tabs[i].url) == Host)
           {
             _tabs.push(tabs[i].id);
