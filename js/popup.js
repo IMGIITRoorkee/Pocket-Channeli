@@ -74,7 +74,7 @@ $("#logout_btn").on("click", function(){
           chrome.tabs.reload(_tabs[j]);
         }
       });
-      chrome.browserAction.setIcon({path: "../images/icon48.png"});
+      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
     }
     else if(res.msg == "FAILURE")
     {
