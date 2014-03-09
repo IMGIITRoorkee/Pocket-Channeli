@@ -21,7 +21,7 @@ $(document).ready(function(){
       $("#main").show();
       $("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
         "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
-      chrome.browserAction.setIcon({path: "../images/vle.png"});
+      chrome.browserAction.setIcon({path: "../images/icon_active.png"});
     }
     else if(res.msg == "NO")
     {
@@ -121,7 +121,7 @@ $("#login_form").submit(function(e){
           chrome.tabs.reload(_tabs[j]);
         }
       });
-      chrome.browserAction.setIcon({path: "../images/vle.png"});
+      chrome.browserAction.setIcon({path: "../images/icon_active.png"});
     }
     else if(res.msg == "NO")
     {
