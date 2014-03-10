@@ -138,7 +138,6 @@ p#user_info {
 #submit:hover {
     opacity:1;
 }
-
 #loggedin{
     text-align: center;
     color: #555;
@@ -150,7 +149,6 @@ p#user_info {
     right: 2px;
     top: 4px;    
 }
-
 ::-webkit-input-placeholder {
  	  color: #ccc;
 }
