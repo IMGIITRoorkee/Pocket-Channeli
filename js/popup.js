@@ -9,6 +9,85 @@ $(document).ready(function(){
     l.href = href;
     return l.hostname;
   }
+  
+  var NetworkStatus = 0; /* 0 - offline, 1 - online */
+
+  /* Checks Network Connection Status */
+  var checkNetConnection = function() {
+    $.get(Domain, {}, function(res){
+      if(NetworkStatus == 0) {
+        checkSession();
+        NetworkStatus = 1;
+      }
+    })
+    .fail( function(res) {
+      NetworkStatus = 0;
+      $("#user_box").hide();
+      $("#loader").hide();
+      /* NOTE: No need to load apps_content into main b'coz it's already 
+         loaded at .failure of GET'/chrome-ext/check-cache/' */
+      $("#message").show();
+      var msg = "Network connection error!";
+      $("#message").html("<p>" + msg + "</p>");
+      $("#login").show();
+      $("#main").show();
+      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+    });
+  }
+
+  setInterval(checkNetConnection, 2000);
+
+  var checkSession = function() {
+  var url = Domain + "/check-session/"; 
+  $.post(url, function(res){
+    $("#loader").hide();
+    if(res.msg == "YES")
+    {
+      $("#login").hide();
+      $("#message").hide();
+      $("#user_box").show();
+      $("#main").show();
+      $("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
+        "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
+      chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+    }
+    else if(res.msg == "NO")
+    {
+      $("#message").hide();
+      $("#user_box").hide();
+      $("#login").show();
+      $("#main").show();
+    }
+    else if(res.msg == "FAILURE")
+    {
+      $("#user_box").hide();
+      $("#message").show();
+      var msg = "Invalid request!";
+      $("#message").html("<p>" + msg + "</p>");
+      $("#login").show();
+      $("#main").show();
+    }
+    else{
+      $("#login").hide();
+      $("#user_box").hide();
+      $("#message").show();
+      var msg = "Error occured!";
+      $("#message").html("<p>" + msg + "</p>");
+      $("#main").show();
+    }
+  })
+  .fail( function(res) {
+    console.log("Error occured while fetching data-1-3!");
+    $("#loader").hide();
+    /* NOTE: No need to load apps_content into main b'coz it's already 
+       loaded at .failure of GET'/chrome-ext/check-cache/' */
+    var msg = "Network connection error!";
+    $("#message").html("<p>" + msg + "</p>");
+    $("#login").show();
+    $("#main").show();
+    chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+  });
+}
 
   if(typeof localStorage['cache_key'] == 'undefined') {
     $.get(Domain + '/chrome-ext/check-cache/', {}, function(res){
@@ -68,54 +147,8 @@ $(document).ready(function(){
     });
   }
 
-  var url = Domain + "/check-session/"; 
-  $.post(url, function(res){
-    $("#loader").hide();
-    if(res.msg == "YES")
-    {
-      $("#login").hide();
-      $("#message").hide();
-      $("#user_box").show();
-      $("#main").show();
-      $("#profile_box").html("<div id='profile_pic_box'><img src='"+ Domain + res.photo + "' alt='pic' class='profile_pic'/></div>"+ 
-        "<div id='user_name_box'><p id='user_name'>" + res._name + "</p> <p id='user_info'>" + res.info + "</p>");
-      chrome.browserAction.setIcon({path: "../images/icon_active.png"});
-    }
-    else if(res.msg == "NO")
-    {
-      $("#message").hide();
-      $("#user_box").hide();
-      $("#login").show();
-      $("#main").show();
-    }
-    else if(res.msg == "FAILURE")
-    {
-      $("#user_box").hide();
-      $("#message").show();
-      var msg = "Invalid request!";
-      $("#message").html("<p>" + msg + "</p>");
-      $("#login").show();
-      $("#main").show();
-    }
-    else{
-      $("#login").hide();
-      $("#user_box").hide();
-      $("#message").show();
-      var msg = "Error occured!";
-      $("#message").html("<p>" + msg + "</p>");
-      $("#main").show();
-    }
-  })
-  .fail( function(res) {
-    console.log("Error occured while fetching data-1-3!");
-    $("#loader").hide();
-    /* NOTE: No need to load apps_content into main b'coz it's already 
-       loaded at .failure of GET'/chrome-ext/check-cache/' */
-    var msg = "Network connection error!";
-    $("#message").html("<p>" + msg + "</p>");
-    $("#login").show();
-    $("#main").show();
-  });
+  /* Checks the user's loggedin status */
+  checkSession();
 
   $("#logout_btn").on("click", function(){
     var url = Domain + "/logout-user/";

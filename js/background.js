@@ -1,6 +1,6 @@
 /* This script runs in the background from when the app is loaded */
 
-var Domain = "https://channeli.in"; //"https://channeli.in";
+var Domain = "https://channeli.in";
 var Host = "channeli.in";
 
 var getDomainName = function (href) {
@@ -53,3 +53,24 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
   }
 }); 
+
+var NetworkStatus = 0; /* 0 - offline, 1 - online */
+
+  /* Checks Network Connection Status */
+  var checkNetConnection = function() {
+    $.get(Domain, {}, function(res){
+      if(NetworkStatus == 0) {
+        checkSession();
+        NetworkStatus = 1;
+      }
+    })
+    .fail( function(res) {
+      NetworkStatus = 0;
+      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+    });
+  }
+
+/* Checks the network status per every 2 seconds */
+setInterval(checkNetConnection, 2000);
+
+
