@@ -41,7 +41,6 @@ $(document).ready(function(){
     });
   }
 
-  setInterval(checkNetConnection, 2000);
 
   var checkSession = function() {
   var url = Domain + "/check-session/"; 
@@ -253,5 +252,8 @@ $(document).ready(function(){
       }
     });
   });
+
+setInterval(checkNetConnection, 4000);
 });
+
 

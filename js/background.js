@@ -71,6 +71,6 @@ var NetworkStatus = 0; /* 0 - offline, 1 - online */
   }
 
 /* Checks the network status per every 2 seconds */
-setInterval(checkNetConnection, 2000);
+setInterval(checkNetConnection, 3000);
 
 
