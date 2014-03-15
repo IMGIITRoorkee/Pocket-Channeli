@@ -105,8 +105,18 @@ $(document).ready(function(){
       $("#message").html("<p>" + msg + "</p>");
       $("#main").show();
     }
+  })
+  .fail( function(res) {
+    console.log("Error occured while fetching data-1-3!");
+    $("#loader").hide();
+    /* NOTE: No need to load apps_content into main b'coz it's already 
+       loaded at .failure of GET'/chrome-ext/check-cache/' */
+    var msg = "Network connection error!";
+    $("#message").html("<p>" + msg + "</p>");
+    $("#login").show();
+    $("#main").show();
   });
-  
+
   $("#logout_btn").on("click", function(){
     var url = Domain + "/logout-user/";
     $.post(url, function(res){
