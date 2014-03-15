@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     if(typeof localStorage['cache_key'] == 'undefined') {
         console.log("heyhey..!!");
-        $.get(Domain + '/chrome_ext/check-cache/', {}, function(res){
+        $.get(Domain + '/chrome-ext/check-cache/', {}, function(res){
           if(!(res == 'FAILURE')) {
               $('#main').html(res);
               var new_key = $('input[name="cache_key"]').val();
@@ -38,7 +38,7 @@ $(document).ready(function(){
     }
     else {
         console.log("hey..!!");
-        $.get( Domain + '/chrome_ext/check-cache/', {'cache_key': localStorage['cache_key']}, function(res){
+        $.get( Domain + '/chrome-ext/check-cache/', {'cache_key': localStorage['cache_key']}, function(res){
           console.log("success!!");
           if(!(res == 'FAILURE')) {
             if(typeof res.cache_key == 'undefined') {
