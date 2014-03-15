@@ -10,8 +10,70 @@ $(document).ready(function(){
     return l.hostname;
   }
 
+    if(typeof localStorage['cache_key'] == 'undefined') {
+        console.log("heyhey..!!");
+        $.get(Domain + '/chrome_ext/check-cache/', {}, function(res){
+          if(!(res == 'FAILURE')) {
+              $('#main').html(res);
+              var new_key = $('input[name="cache_key"]').val();
+              if(!(new_key == 'undefined')) {
+                localStorage['cache_key'] = new_key;
+                localStorage['apps_content'] = res;
+                console.log(localStorage['cache_key']);
+              }
+          }
+          else {
+            console.log("failure!!");
+            console.log("Error occured while fetching data!");
+            var html_content = localStorage['apps_content'];
+            $('#main').html(html_content);
+          }
+      })
+       .fail( function(res) {
+                    console.log("failure!!");
+                    console.log("Error occured while fetching data!");
+                    var html_content = localStorage['apps_content'];
+                    $('#main').html(html_content);
+            });
+    }
+    else {
+        console.log("hey..!!");
+        $.get( Domain + '/chrome_ext/check-cache/', {'cache_key': localStorage['cache_key']}, function(res){
+          console.log("success!!");
+          if(!(res == 'FAILURE')) {
+            if(typeof res.cache_key == 'undefined') {
+                  $('#main').html(res);
+                  var new_key = $('input[name="cache_key"]').val();
+                  console.log(new_key);
+                  if(!(typeof new_key == 'undefined')) {
+                      localStorage['cache_key'] = new_key;
+                      localStorage['apps_content'] = res;
+                      console.log(localStorage['cache_key']);
+                  }
+              }
+              else {
+                /* Take data from localstorage */
+                console.log("Already have updated version!");
+                var html_content = localStorage['apps_content'];
+                $('#main').html(html_content);
+              }
+          }
+          else {
+            console.log("failure-1!!");
+            console.log("Error occured while fetching data-1!");
+            var html_content = localStorage['apps_content'];
+            $('#main').html(html_content);
+          }
+        })
+        .fail( function(res) {
+            console.log("failure-2!!");
+            console.log("Error occured while fetching data-2!");
+            var html_content = localStorage['apps_content'];
+            $('#main').html(html_content);
+        });
+    }
+
   var url = Domain + "/check-session/"; 
- 
   $.post(url, function(res){
     $("#loader").hide();
     if(res.msg == "YES")

@@ -1,6 +1,6 @@
 /* This script runs in the background from when the app is loaded */
 
-var Domain = "https://channeli.in";
+var Domain = "https://channeli.in"; //"https://channeli.in";
 var Host = "channeli.in";
 
 var getDomainName = function (href) {
@@ -31,6 +31,25 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (tab_url !== undefined && changeInfo.status == "complete") {
     if(domain == Host) {
       checkSession();
+      /*
+      chrome.tabs.query({}, function (tabs) {
+          var _tabs = [];
+          for (var i = 0; i < tabs.length; i++) {
+            if(getDomainName(tabs[i].url) == Host)
+            {
+              if(tabs[i].id == tabId) continue; 
+              else {
+                _tabs.push(tabs[i].id);
+              }
+            }
+          }
+          for(var j = 0; j < _tabs.length; j++)
+          {
+            
+            chrome.tabs.reload(_tabs[j]);
+          }
+      });
+      */
     }
   }
 }); 

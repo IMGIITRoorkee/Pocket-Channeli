@@ -14,7 +14,8 @@
 
   "permissions": [
     "tabs",
-    "https://channeli.in/*"
+    "storage",
+    "http://192.168.121.147:60000/*"
   ],	
 
   "browser_action": {
