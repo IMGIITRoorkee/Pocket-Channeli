@@ -11,6 +11,7 @@ $(document).ready(function(){
   }
   
   var NetworkStatus = 0; /* 0 - offline, 1 - online */
+  var UserStatus = 0; /* 0 - not logged in, 1 - logged in */
 
   /* Checks Network Connection Status */
   var checkNetConnection = function() {
@@ -22,14 +23,19 @@ $(document).ready(function(){
     })
     .fail( function(res) {
       NetworkStatus = 0;
-      $("#user_box").hide();
       $("#loader").hide();
+      
+      if(UserStatus == 1) {  // If user is loggedin and connection error has occured.
+        $("#user_box").show();
+      }
+      else
+        $("#login").show();
+      
       /* NOTE: No need to load apps_content into main b'coz it's already 
          loaded at .failure of GET'/chrome-ext/check-cache/' */
       $("#message").show();
       var msg = "Network connection error!";
       $("#message").html("<p>" + msg + "</p>");
-      $("#login").show();
       $("#main").show();
       chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
     });
@@ -43,6 +49,7 @@ $(document).ready(function(){
     $("#loader").hide();
     if(res.msg == "YES")
     {
+      UserStatus = 1;
       $("#login").hide();
       $("#message").hide();
       $("#user_box").show();
@@ -155,6 +162,7 @@ $(document).ready(function(){
     $.post(url, function(res){
       if(res.msg == "OK")
       {
+        UserStatus = 0;
         $("#message").hide();
         $("#user_box").hide();
         $("#login").show();
@@ -202,6 +210,7 @@ $(document).ready(function(){
     $.post(url, data, function(res){
       if(res.msg == "YES")
       {
+        UserStatus = 1
         $("#login").hide();
         $("#message").hide();
         $("#user_box").show();
