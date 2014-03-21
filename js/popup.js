@@ -10,10 +10,12 @@ $(document).ready(function(){
     return l.hostname;
   }
   
-  var NetworkStatus = 0; /* 0 - offline, 1 - online */
+  //var NetworkStatus = 0; /* 0 - offline, 1 - online */
   var UserStatus = 0; /* 0 - not logged in, 1 - logged in */
 
-  /* Checks Network Connection Status */
+
+  /**** Checks Network Connection Status ****/
+  /*
   var checkNetConnection = function() {
     $.get(Domain, {}, function(res){
       if(NetworkStatus == 0) {
@@ -31,8 +33,8 @@ $(document).ready(function(){
       else
         $("#login").show();
       
-      /* NOTE: No need to load apps_content into main b'coz it's already 
-         loaded at .failure of GET'/chrome-ext/check-cache/' */
+      // NOTE: No need to load apps_content into main b'coz it's already 
+      //  loaded at .failure of GET'/chrome-ext/check-cache/'
       $("#message").show();
       var msg = "Network connection error!";
       $("#message").html("<p>" + msg + "</p>");
@@ -40,7 +42,7 @@ $(document).ready(function(){
       chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
     });
   }
-
+  */
 
   var checkSession = function() {
   var url = Domain + "/check-session/"; 
@@ -253,7 +255,7 @@ $(document).ready(function(){
     });
   });
 
-setInterval(checkNetConnection, 4000);
+//setInterval(checkNetConnection, 4000);
 });
 
 
