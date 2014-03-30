@@ -17,6 +17,7 @@ Developer Mode
 3. select 'load unpacked extension'
 That's it. Your developer mode extention is configured.
 
+
 Manifest Version
 ----------------
 <pre>
@@ -24,15 +25,27 @@ Manifest Version
 </pre>
 
 
+Contributing
+------------
 
-Manifest Permissions
---------------------
+* If you are Interested in contributing to this project, you are most welcome.
+* If it is a bug-fix/improvement report it first at [issues](https://github.com/IMGIITRoorkee/Pocket-Channeli/issues)
+* Explain to us in detail about your issue/improvement
+* Get the issue allotted.
 
-1. To access browser tabs and their properties
-2. To access any url @ https://channel.in domain
+
+Pull Requests
+-------------
+
+* If you are contributing a bug-fix or a very minor addition, feel free to do a pull request on the master # branch.
+* If you are unsure about the bug/improvement, create an issue to discuss.
 
 
-NOTE: Refresh the extension @ Settings -> Extensions whenever you change the manifest file. 
+Bug Report
+----------
+
+* Report bugs @ [issues](https://github.com/IMGIITRoorkee/Pocket-Channeli/issues)
+
 
 Resources
 ---------
