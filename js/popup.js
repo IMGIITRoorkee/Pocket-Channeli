@@ -1,3 +1,5 @@
+/* popup.js - Script to handle the popup */
+
 $(document).ready(function(){	
 
   var Domain = "https://channeli.in";
@@ -10,41 +12,9 @@ $(document).ready(function(){
     return l.hostname;
   }
   
-  //var NetworkStatus = 0; /* 0 - offline, 1 - online */
   var UserStatus = 0; /* 0 - not logged in, 1 - logged in */
-
-
-  /**** Checks Network Connection Status ****/
-  /*
-  var checkNetConnection = function() {
-    $.get(Domain, {}, function(res){
-      if(NetworkStatus == 0) {
-        checkSession();
-        NetworkStatus = 1;
-      }
-    })
-    .fail( function(res) {
-      NetworkStatus = 0;
-      $("#loader").hide();
-      
-      if(UserStatus == 1) {  // If user is loggedin and connection error has occured.
-        $("#user_box").show();
-      }
-      else
-        $("#login").show();
-      
-      // NOTE: No need to load apps_content into main b'coz it's already 
-      //  loaded at .failure of GET'/chrome-ext/check-cache/'
-      $("#message").show();
-      var msg = "Network connection error!";
-      $("#message").html("<p>" + msg + "</p>");
-      $("#main").show();
-      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-    });
-  }
-  */
-
-  var checkSession = function() {
+  
+  var checkSession = function() {   /* Checks whether the user is already loggedin or not */
   var url = Domain + "/check-session/"; 
   $.post(url, function(res){
     $("#loader").hide();
@@ -158,7 +128,7 @@ $(document).ready(function(){
   /* Checks the user's loggedin status */
   checkSession();
 
-  $("#logout_btn").on("click", function(){
+  $("#logout_btn").on("click", function(){   /* Make user logout */
     var url = Domain + "/logout-user/";
     $.post(url, function(res){
       if(res.msg == "OK")
@@ -204,7 +174,7 @@ $(document).ready(function(){
     });
   });
 
-  $("#login_form").submit(function(e){
+  $("#login_form").submit(function(e){  /* Makes user login through his/her credentials */
     e.preventDefault();
     var url = Domain + "/check-login/";
     var data = $("#login_form").serialize();
@@ -254,8 +224,5 @@ $(document).ready(function(){
       }
     });
   });
-
-//setInterval(checkNetConnection, 4000);
 });
-
 

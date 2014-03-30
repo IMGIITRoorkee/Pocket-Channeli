@@ -31,7 +31,11 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (tab_url !== undefined && changeInfo.status == "complete") {
     if(domain == Host) {
       checkSession();
-      /*
+      /*****************************************************************************************
+      //TODO: When more than one tab from 'channel.in' domain are active, then logging out
+      //      from channeli in one tab should automatically make other tabs from the same  
+      //      domain to refresh along with the extension.
+
       chrome.tabs.query({}, function (tabs) {
           var _tabs = [];
           for (var i = 0; i < tabs.length; i++) {
@@ -49,7 +53,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             chrome.tabs.reload(_tabs[j]);
           }
       });
-      */
+      ******************************************************************************************/
     }
   }
 }); 
@@ -70,7 +74,7 @@ var NetworkStatus = 0; /* 0 - offline, 1 - online */
     });
   }
 
-/* Checks the network status per every 2 seconds */
+/* Checks the network status per every 3 seconds */
 setInterval(checkNetConnection, 3000);
 
 
