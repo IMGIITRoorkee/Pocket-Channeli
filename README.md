@@ -29,8 +29,8 @@ Contributing
 ------------
 
 * If you are Interested in contributing to this project, you are most welcome.
-* If it is a bug-fix/improvement report it first at [issues](https://github.com/IMGIITRoorkee/Pocket-Channeli/issues)
-* Explain to us in detail about your issue/improvement
+* If it is a bug-fix/improvement, first report it at [issues](https://github.com/IMGIITRoorkee/Pocket-Channeli/issues)
+* Discuss with us in detail about your issue/improvement
 * Get the issue allotted.
 
 
