@@ -3,6 +3,11 @@ Pocket Channel-i
 
 Now accessing your intranet applications and staying in sync with Channel-I is easier than ever before!
 
+Installation
+------------
+
+Download and install from [chrome web store](https://chrome.google.com/webstore/detail/pocket-channel-i/bmdldmogfobfbhfbifklclnbacoojknk).
+
 Screenshot
 ----------
 
