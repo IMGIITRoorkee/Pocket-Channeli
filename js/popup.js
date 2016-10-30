@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     // Log the user out
     $("#logout_button").on("click", function () {
-        var url = domain + "/logout/";
+        var url = DOMAIN + "/logout/";
         $.get(url, function () {
             userStatus = 0;
             chrome.tabs.query({}, function (tabs) {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 
     // Load the login page
     $("#login_button").on("click", function () {
-        chrome.tabs.create({url: domain + "/login/"});
+        chrome.tabs.create({url: DOMAIN + "/login/"});
         return false;
     });
 });
