@@ -47,14 +47,14 @@ $(document).ready(function () {
         $.get(url, function () {
             userStatus = 0;
             chrome.tabs.query({}, function (tabs) {
-                var _tabs = [];
+                var tabsToReload = [];
                 for (var i = 0; i < tabs.length; i++) {
-                    if (getHostName(tabs[i].url) == host) {
-                        _tabs.push(tabs[i].id);
+                    if (getHostName(tabs[i].url) == HOST) {
+                        tabsToReload.push(tabs[i].id);
                     }
                 }
-                for (var j = 0; j < _tabs.length; j++) {
-                    chrome.tabs.reload(_tabs[j]);
+                for (var j = 0; j < tabsToReload.length; j++) {
+                    chrome.tabs.reload(tabsToReload[j]);
                 }
             });
             chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
