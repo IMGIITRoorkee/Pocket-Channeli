@@ -39,6 +39,12 @@ $(document).ready(function () {
                 // Update the popup view
                 $login.hide();
                 $main.show();
+
+                var $userPhoto = $("#user-photo");
+                $("#user-name").html(user__name);
+                $("#user-username").html(user__username);
+                $userPhoto.attr("src", DOMAIN + user__photo);
+                $userPhoto.attr("alt", user__name);
             } else {
                 // Not logged in
                 // Update the popup view
@@ -55,7 +61,7 @@ $(document).ready(function () {
     checkSession();
 
     // Log the user out
-    $("#logout_button").on("click", function () {
+    $("#logout-button").on("click", function () {
         var url = DOMAIN + "/logout/";
         $.get(url, function () {
             userStatus = 0;
@@ -79,7 +85,7 @@ $(document).ready(function () {
     });
 
     // Load the login page
-    $("#login_button").on("click", function () {
+    $("#login-button").on("click", function () {
         chrome.tabs.create({url: DOMAIN + "/login/"});
         return false;
     });
