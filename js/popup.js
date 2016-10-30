@@ -4,6 +4,13 @@ $(document).ready(function () {
     var DOMAIN = "https://channeli.in";
     var HOST = "channeli.in";
 
+    var $loader = $("#loader");
+    var $login = $("#login");
+    var $main = $("#main");
+
+    $login.hide();
+    $main.hide();
+
     /**
      * Get the host name from a given URL
      * @param href the URL taken from the address bar
@@ -22,21 +29,27 @@ $(document).ready(function () {
     var checkSession = function () {
         var url = DOMAIN + "/lectut_api/";
         $.get(url, function (data) {
-            $("#loader").hide();
+            $loader.hide();
             var userType = data.userType;
-            if (userType === 0) {
+            if (userType == 0) {
                 // Logged in
                 var user__username = data.user.username;
                 var user__name = data.user.name;
                 var user__photo = data.user.photo;
                 // Update the popup view
+                $login.hide();
+                $main.show();
             } else {
                 // Not logged in
                 // Update the popup view
+                $login.show();
+                $main.hide();
             }
         }).fail(function () {
             // Failure
             // Update the popup view
+            $login.show();
+            $main.hide();
         });
     };
     checkSession();
@@ -59,6 +72,9 @@ $(document).ready(function () {
             });
             chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             // Update the popup view
+            $loader.hide();
+            $login.show();
+            $main.hide();
         });
     });
 
