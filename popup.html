@@ -1,51 +1,41 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <title>Channel-i</title>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="description" content="">
-  <meta charset="utf-8">
-  <link href='css/popup.css' rel='stylesheet' type='text/css'>
-  <style>
-    #user_box, #login, #main {
-      display:none;
-    }
-  </style>
+    <title>Channel-i</title>
+
+    <meta name="description" content="A gateway to Channel-i ever present in your browser">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="http://semantic-ui.com/dist/semantic.min.css">
+    <!-- Custom CSS to cascade on Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
 </head>
 
 <body>
-  <div id="loader">
-    <img src="images/loading_transparent.gif" alt="loading_gif" />
-  </div>
-  <div id="message">
-    <!-- Warning/Info message area -->
-  </div>
-  <div id="user_box">
-    <div id="profile_box">
-      <!-- Profile info area -->
-    </div>
-    <div id="loggedin">
-      <button id="logout_btn">Logout</button>
-    </div>
-  </div>
-  <div id="login">
-    <form id="login_form" method="POST">
-      <input type="text" class="field" id="username_field" name="username" value="" placeholder="Username" required/>
-      <input type="password" class="field" id="password_field" name="password" value="" placeholder="Password" required/>
-      <input type="submit" id="submit" value="">
-    </form>
-  </div>
-  <div id="main">
-    <!-- Main apps box -->
-  </div>
 
-  <a href="https://www.facebook.com/IMGIITRoorkee" target="_blank" id="footer">
-    <img style="position: absolute;right: 14px;bottom: 10px;width:40px;height: 	40px;" src="images/img_logo.png">
-  </a>
+<!-- Spinner to display when loading -->
+<div id="loader">
+    <img src="images/loading_transparent.gif" alt="loading_gif"/>
+</div>
 
-  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-  <script type="text/javascript" src="js/popup.js"></script>
+<!-- The 'Login' button appears when not logged in on Channel-i -->
+<div id="login">
+</div>
+
+<!-- The profile and links appear when logged in on Channel-i-->
+<div id="main">
+</div>
+
 </body>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+<!-- Semantic UI JS -->
+<script type="text/javascript" src="http://semantic-ui.com/dist/semantic.min.js"></script>
+<!-- Custom JS -->
+<script type="text/javascript" src="js/popup.js"></script>
 
 </html>
