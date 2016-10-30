@@ -1,4 +1,22 @@
+#loader, #login, #main {
+    height: 100%;
+}
+
+.content {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #loading_gif {
     height: 16px;
     width: 16px;
+}
+
+#img_logo_img {
+    height: 125px;
+    width: 125px;
 }
