@@ -1,8 +1,4 @@
-#loader, #login, #main {
-    height: 100%;
-}
-
-.content {
+.centered-content {
     height: 100%;
 
     display: flex;
@@ -11,12 +7,27 @@
     justify-content: center;
 }
 
-#loading_gif {
+#loader, #login, #main {
+    height: 100%;
+}
+
+#main {
+    padding: 8px;
+}
+
+#loading-gif {
     height: 16px;
     width: 16px;
 }
 
-#img_logo_img {
+#img-logo-img {
     height: 125px;
     width: 125px;
+}
+
+#user-photo {
+    height: 64px;
+    width: 64px;
+
+    margin-bottom: 0;
 }
