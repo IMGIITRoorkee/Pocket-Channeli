@@ -1,3 +1,7 @@
+body {
+    width: 400px;
+}
+
 .centered-content {
     height: 100%;
 
@@ -26,8 +30,8 @@
 }
 
 #user-photo {
-    height: 64px;
-    width: 64px;
+    height: 48px;
+    width: 48px;
 
     margin-bottom: 0;
 }
