@@ -1,80 +1,63 @@
 /* This script runs in the background from when the app is loaded */
 
-var Domain = "https://channeli.in";
-var Host = "channeli.in";
+var NET_CHECK_DOMAIN = "http://info.cern.ch/";
+var DOMAIN = "https://channeli.in";
+var HOST = "channeli.in";
 
-var getDomainName = function (href) {
-  var l = document.createElement("a");
-  l.href = href;
-  return l.hostname;
-}
+/**
+ * Get the host name from a given URL
+ * @param href the URL taken from the address bar
+ * @returns {string} hostname - the host name extracted from the URL
+ */
+var getHostName = function (href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l.hostname;
+};
 
-var checkSession = function() {
-  var url = Domain + "/check-session/";
-  $.post(url, function(res){
-    if(res.msg == "YES") {
-      chrome.browserAction.setIcon({path: "../images/icon_active.png"});	
-    }
-    else if(res.msg == "NO") {
-      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-    }
-  });
-}
-
-// This is to handle the status updation when the app is "loaded" or "refreshed". 
-checkSession(); 
-
-/* Updates the status especially when the 'channeli.in' tabs are updated */
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  var tab_url = tab.url;
-  var domain = getDomainName(tab_url);
-  if (tab_url !== undefined && changeInfo.status == "complete") {
-    if(domain == Host) {
-      checkSession();
-      /*****************************************************************************************
-      //TODO: When more than one tab from 'channel.in' domain are active, then logging out
-      //      from channeli in one tab should automatically make other tabs from the same  
-      //      domain to refresh along with the extension.
-
-      chrome.tabs.query({}, function (tabs) {
-          var _tabs = [];
-          for (var i = 0; i < tabs.length; i++) {
-            if(getDomainName(tabs[i].url) == Host)
-            {
-              if(tabs[i].id == tabId) continue; 
-              else {
-                _tabs.push(tabs[i].id);
-              }
-            }
-          }
-          for(var j = 0; j < _tabs.length; j++)
-          {
-            
-            chrome.tabs.reload(_tabs[j]);
-          }
-      });
-      ******************************************************************************************/
-    }
-  }
-}); 
-
-var NetworkStatus = 0; /* 0 - offline, 1 - online */
-
-  /* Checks Network Connection Status */
-  var checkNetConnection = function() {
-    $.get(Domain, {}, function(res){
-      if(NetworkStatus == 0) {
-        checkSession();
-        NetworkStatus = 1;
-      }
-    })
-    .fail( function(res) {
-      NetworkStatus = 0;
-      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+/** Check if the user is logged in by performing a request on the LecTut API */
+var checkSession = function () {
+    var url = DOMAIN + "/lectut_api/";
+    $.get(url, function (data) {
+        var userType = data.userType;
+        if (userType == 0) {
+            // Logged in
+            chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+        } else {
+            // Not logged in
+            chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+        }
     });
-  }
+};
+checkSession();
 
-/* Checks the network status per every 3 seconds */
+/** Updates the status especially when the 'channeli.in' tabs are updated */
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    var tab_url = tab.url;
+    var domain = getHostName(tab_url);
+    console.log(domain);
+    if (tab_url !== undefined && changeInfo.status == "complete") {
+        if (domain == HOST) {
+            checkSession();
+        }
+    }
+});
+
+/** 0 implies 'not connected' and 1 implies 'connected' */
+var networkStatus = 0;
+var checkNetConnection = function () {
+    $.get(NET_CHECK_DOMAIN, {}, function () {
+        if (networkStatus == 0) {
+            checkSession();
+            networkStatus = 1;
+        }
+    }).fail(function (res) {
+        networkStatus = 0;
+        chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+    });
+};
+
+/** Checks the network status per every 3 seconds */
 setInterval(checkNetConnection, 3000);
 
 
