@@ -11,6 +11,15 @@ body {
     justify-content: center;
 }
 
+.app-icon {
+    height: 25px;
+    width: 25px;
+
+    border-radius: 0;
+
+    margin-bottom: 0;
+}
+
 #loader, #login, #main {
     height: 100%;
 }
