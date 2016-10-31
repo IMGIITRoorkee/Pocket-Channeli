@@ -5,6 +5,7 @@
   "version": "1.0",
   "background": {
     "scripts": [
+      "js/jquery.js",
       "js/background.js"
     ]
   },
@@ -15,7 +16,8 @@
   },
   "permissions": [
     "tabs",
-    "https://channeli.in/*"
+    "https://channeli.in/*",
+    "http://info.cern.ch/*"
   ],
   "browser_action": {
     "default_icon": "images/icon_inactive.png",
