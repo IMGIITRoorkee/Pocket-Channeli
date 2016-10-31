@@ -33,10 +33,12 @@ $(document).ready(function () {
             var userType = data.userType;
             if (userType == 0) {
                 // Logged in
+                userStatus = 1;
+                chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+                // Update the popup view
                 var user__username = data.user.username;
                 var user__name = data.user.name;
                 var user__photo = data.user.photo;
-                // Update the popup view
                 $login.hide();
                 $main.show();
 
@@ -47,12 +49,16 @@ $(document).ready(function () {
                 $userPhoto.attr("alt", user__name);
             } else {
                 // Not logged in
+                userStatus = 0;
+                chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
                 // Update the popup view
                 $login.show();
                 $main.hide();
             }
         }).fail(function () {
             // Failure
+            userStatus = 0;
+            chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             // Update the popup view
             $login.show();
             $main.hide();
