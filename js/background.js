@@ -4,9 +4,30 @@ var NET_CHECK_DOMAIN = "http://info.cern.ch/";
 var DOMAIN = "https://channeli.in";
 var HOST = "channeli.in";
 
+/** 0 implies 'not logged in' and 1 implies 'logged in' */
+var userStatus = -1;
+/** 0 implies 'not connected' and 1 implies 'connected' */
+var networkStatus = 0;
+
+/**
+ * Check session if the changed tab was one of Channel-i
+ * @param tabId - the ID of the tab that is changing or has changed
+ * @param changeInfo - whether the tab is changing or has changed
+ * @param tab - the tab that is changing or has changed
+ */
+function updateListener(tabId, changeInfo, tab) {
+    var url = tab.url;
+    if (url !== undefined && changeInfo.status === "complete") {
+        var host = getHostName(url);
+        if (host == HOST) {
+            checkSession();
+        }
+    }
+}
+
 /**
  * Get the host name from a given URL
- * @param href the URL taken from the address bar
+ * @param href - the URL taken from the address bar
  * @returns {string} hostname - the host name extracted from the URL
  */
 var getHostName = function (href) {
@@ -17,47 +38,39 @@ var getHostName = function (href) {
 
 /** Check if the user is logged in by performing a request on the LecTut API */
 var checkSession = function () {
+    var oldUserStatus = userStatus;
     var url = DOMAIN + "/lectut_api/";
     $.get(url, function (data) {
         var userType = data.userType;
         if (userType == 0) {
             // Logged in
+            userStatus = 1;
             chrome.browserAction.setIcon({path: "../images/icon_active.png"});
         } else {
             // Not logged in
+            userStatus = 0;
             chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
         }
     });
 };
-checkSession();
 
-/** Updates the status especially when the 'channeli.in' tabs are updated */
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    var tab_url = tab.url;
-    var domain = getHostName(tab_url);
-    console.log(domain);
-    if (tab_url !== undefined && changeInfo.status == "complete") {
-        if (domain == HOST) {
-            checkSession();
-        }
-    }
-});
-
-/** 0 implies 'not connected' and 1 implies 'connected' */
-var networkStatus = 0;
+/** Check if the user is connected to the Internet by contacting the CERN webpage */
 var checkNetConnection = function () {
     $.get(NET_CHECK_DOMAIN, {}, function () {
         if (networkStatus == 0) {
-            checkSession();
+            checkSession(-1);
             networkStatus = 1;
         }
-    }).fail(function (res) {
+    }).fail(function () {
         networkStatus = 0;
         chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
     });
 };
 
-/** Checks the network status per every 3 seconds */
-setInterval(checkNetConnection, 3000);
+// Add the listener for tab updates
+chrome.tabs.onUpdated.addListener(updateListener);
+
+// Check session once when the browser is launched
+checkSession();
 
 
