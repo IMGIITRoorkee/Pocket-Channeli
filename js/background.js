@@ -4,10 +4,8 @@ var NET_CHECK_DOMAIN = "http://info.cern.ch/";
 var DOMAIN = "https://channeli.in";
 var HOST = "channeli.in";
 
-/** 0 implies 'not logged in' and 1 implies 'logged in' */
-var userStatus = -1;
-/** 0 implies 'not connected' and 1 implies 'connected' */
-var networkStatus = 0;
+var isUserLoggedIn = undefined;
+var isNetworkConnected = false;
 
 /**
  * Check session if the changed tab was one of Channel-i
@@ -30,42 +28,42 @@ function updateListener(tabId, changeInfo, tab) {
  * @param href - the URL taken from the address bar
  * @returns {string} hostname - the host name extracted from the URL
  */
-var getHostName = function (href) {
+function getHostName(href) {
     var l = document.createElement("a");
     l.href = href;
     return l.hostname;
-};
+}
 
 /** Check if the user is logged in by performing a request on the LecTut API */
-var checkSession = function () {
-    var oldUserStatus = userStatus;
+function checkSession() {
+    var oldUserStatus = isUserLoggedIn;
     var url = DOMAIN + "/lectut_api/";
     $.get(url, function (data) {
         var userType = data.userType;
         if (userType == 0) {
             // Logged in
-            userStatus = 1;
+            isUserLoggedIn = true;
             chrome.browserAction.setIcon({path: "../images/icon_active.png"});
         } else {
             // Not logged in
-            userStatus = 0;
+            isUserLoggedIn = false;
             chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
         }
     });
-};
+}
 
 /** Check if the user is connected to the Internet by contacting the CERN webpage */
-var checkNetConnection = function () {
+function checkNetConnection() {
     $.get(NET_CHECK_DOMAIN, {}, function () {
-        if (networkStatus == 0) {
-            checkSession(-1);
-            networkStatus = 1;
+        if (!isNetworkConnected) {
+            checkSession();
+            isNetworkConnected = true;
         }
     }).fail(function () {
-        networkStatus = 0;
+        isNetworkConnected = false;
         chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
     });
-};
+}
 
 // Add the listener for tab updates
 chrome.tabs.onUpdated.addListener(updateListener);
