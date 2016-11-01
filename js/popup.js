@@ -1,80 +1,63 @@
 /* popup.js - Script to handle the popup */
 
-$(document).ready(function () {
-    var DOMAIN = "https://channeli.in";
-    var HOST = "channeli.in";
+var DOMAIN = "https://channeli.in";
+var HOST = "channeli.in";
 
-    var $loader = $("#loader");
-    var $login = $("#login");
-    var $main = $("#main");
+var $loader = $("#loader");
+var $login = $("#login");
+var $main = $("#main");
 
-    $login.hide();
-    $main.hide();
+/** Check if the user is logged in by performing a request on the LecTut API */
+function checkSessionAndLoad() {
+    var url = DOMAIN + "/lectut_api/";
+    $.get(url, function (data) {
+        $loader.hide();
+        var userType = data.userType;
+        if (userType == 0) {
+            // Logged in
+            chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+            // Update the popup view
+            var userUsername = data.user.username;
+            var userName = data.user.name;
+            var userPhoto = data.user.photo;
+            $login.hide();
+            $main.show();
 
-    /**
-     * Get the host name from a given URL
-     * @param href - the URL taken from the address bar
-     * @returns {string} hostname - the host name extracted from the URL
-     */
-    var getHostName = function (href) {
-        var l = document.createElement("a");
-        l.href = href;
-        return l.hostname;
-    };
-
-    /** 0 implies 'not logged in' and 1 implies 'logged in' */
-    var userStatus = 0;
-
-    /** Check if the user is logged in by performing a request on the LecTut API */
-    var checkSession = function () {
-        var url = DOMAIN + "/lectut_api/";
-        $.get(url, function (data) {
-            $loader.hide();
-            var userType = data.userType;
-            if (userType == 0) {
-                // Logged in
-                userStatus = 1;
-                chrome.browserAction.setIcon({path: "../images/icon_active.png"});
-                // Update the popup view
-                var user__username = data.user.username;
-                var user__name = data.user.name;
-                var user__photo = data.user.photo;
-                $login.hide();
-                $main.show();
-
-                var $userPhoto = $("#user-photo");
-                $("#user-name").html(user__name);
-                $("#user-username").html(user__username);
-                $userPhoto.attr("src", DOMAIN + user__photo);
-                $userPhoto.attr("alt", user__name);
-            } else {
-                // Not logged in
-                userStatus = 0;
-                chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-                // Update the popup view
-                $login.show();
-                $main.hide();
-            }
-        }).fail(function () {
-            // Failure
-            userStatus = 0;
+            var $userPhoto = $("#user-photo");
+            $("#user-name").html(userName);
+            $("#user-username").html(userUsername);
+            $userPhoto.attr("src", DOMAIN + userPhoto);
+            $userPhoto.attr("alt", userName);
+        } else {
+            // Not logged in
             chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             // Update the popup view
             $login.show();
             $main.hide();
-        });
-    };
-    checkSession();
+        }
+    }).fail(function () {
+        // Failure
+        chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+        // Update the popup view
+        $login.show();
+        $main.hide();
+    });
+}
+
+$(document).ready(function () {
+    $login.hide();
+    $main.hide();
+
+    checkSessionAndLoad();
 
     // Log the user out
     $("#logout-button").on("click", function () {
         var url = DOMAIN + "/logout/";
         $.get(url, function () {
-            userStatus = 0;
             chrome.tabs.query({}, function (tabs) {
                 var tabsToReload = [];
                 for (var i = 0; i < tabs.length; i++) {
-                    if (getHostName(tabs[i].url) == HOST) {
+                    if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
                         tabsToReload.push(tabs[i].id);
                     }
                 }
