@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     /**
      * Get the host name from a given URL
-     * @param href the URL taken from the address bar
+     * @param href - the URL taken from the address bar
      * @returns {string} hostname - the host name extracted from the URL
      */
     var getHostName = function (href) {
