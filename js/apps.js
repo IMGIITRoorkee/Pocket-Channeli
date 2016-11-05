@@ -24,10 +24,10 @@ var apps = {
 //regol: new App("Regol", "regol", ""),
 //vle: new App("VLE", "vle", "")
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     var DOMAIN = "https://channeli.in/";
 
-    var $linksTableBody = $("#links-table-body");
+    var linksTableBody = document.getElementById("links-table-body");
     var count = 0;
     var length = Object.keys(apps).length;
     var content = "";
@@ -39,32 +39,35 @@ $(document).ready(function () {
                 '<tr>' +
                 '<td class="selectable">' +
                 '<a href="' + DOMAIN + app.href + '">' +
-                '<img src="images/' + app.logo + '.png" alt="App logo" class="ui left floated app-icon image">' +
-                '<span>' + app.title + '</span>' +
+                '<img src="images/' + app.logo + '.png" alt="App logo" class="ui app-icon image">' +
+                '<span class="app-name">' + app.title + '</span>' +
                 '</a>' +
                 '</td>';
             if (count === length) {
                 content = content +
                     '<td></td>' +
                     '</tr>';
-                $linksTableBody.append(content);
+                linksTableBody.innerHTML += content;
                 content = "";
             }
         } else {
             content = content +
                 '<td class="selectable">' +
                 '<a href="' + DOMAIN + app.href + '">' +
-                '<img src="images/' + app.logo + '.png" alt="App logo" class="ui left floated app-icon image">' +
-                '<span>' + app.title + '</span>' +
+                '<img src="images/' + app.logo + '.png" alt="App logo" class="ui app-icon image">' +
+                '<span class="app-name">' + app.title + '</span>' +
                 '</a>' +
                 '</td>' +
                 '</tr>';
-            $linksTableBody.append(content);
+            linksTableBody.innerHTML += content;
             content = "";
         }
     }
-    $("body").on("click", "a", function () {
-        chrome.tabs.create({url: $(this).attr("href")});
-        return false;
-    });
+    var anchors = document.getElementsByTagName("a");
+    for (var i = 0; i <= anchors.length; i++) {
+        const anchor = anchors[i];
+        anchor.addEventListener("click", function () {
+            chrome.tabs.create({url: anchor.href})
+        });
+    }
 });

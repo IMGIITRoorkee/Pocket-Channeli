@@ -16,8 +16,11 @@ body {
     height: 25px;
     width: 25px;
 
+    display: inline !important;
+
     border-radius: 0;
 
+    margin-right: 5px;
     margin-bottom: 0;
 }
 
