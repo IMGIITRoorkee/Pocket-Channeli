@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     var anchors = document.getElementsByTagName("a");
-    for (var i = 0; i <= anchors.length; i++) {
+    for (var i = 0; i < anchors.length; i++) {
         const anchor = anchors[i];
         anchor.addEventListener("click", function () {
             chrome.tabs.create({url: anchor.href})
