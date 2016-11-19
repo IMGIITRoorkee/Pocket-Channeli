@@ -94,23 +94,17 @@ function logoutListener() {
     var url = DOMAIN + "/logout/";
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            chrome.tabs.query({}, function (tabs) {
-                var tabsToReload = [];
-                for (var i = 0; i < tabs.length; i++) {
-                    if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
-                        tabsToReload.push(tabs[i].id);
-                    }
+        chrome.tabs.query({}, function (tabs) {
+            for (var i = 0; i < tabs.length; i++) {
+                if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
+                    chrome.tabs.reload(tabs[i].id, {bypassCache: true});
                 }
-                for (var j = 0; j < tabsToReload.length; j++) {
-                    chrome.tabs.reload(tabsToReload[j]);
-                }
-            });
-        }
+            }
+        });
+        window.location.reload(true);
     };
     httpRequest.open("GET", url, true);
     httpRequest.send();
-    window.location.reload(true);
 }
 
 document.addEventListener("DOMContentLoaded", function () {

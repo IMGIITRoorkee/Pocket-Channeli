@@ -1,11 +1,9 @@
 /* This script runs in the background from when the app is loaded */
 
-var NET_CHECK_DOMAIN = "https://channeli.in:8080/";
 var DOMAIN = "https://channeli.in";
 var HOST = "channeli.in";
 
 var isUserLoggedIn = undefined;
-var isNetworkConnected = false;
 
 /**
  * Check session if the changed tab was one of Channel-i
@@ -58,34 +56,29 @@ function checkSession() {
                 isUserLoggedIn = false;
                 chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             }
+            console.log(oldUserStatus + " ~ " + isUserLoggedIn);
+            if (oldUserStatus !== isUserLoggedIn) {
+                chrome.tabs.query({}, function (tabs) {
+                    for (var i = 0; i < tabs.length; i++) {
+                        if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
+                            chrome.tabs.reload(tabs[i].id, {bypassCache: true});
+                        }
+                    }
+                });
+            }
         }
     };
     httpRequest.open("GET", url, true);
     httpRequest.send();
 }
 
-/** Check if the user is connected to the Internet by contacting the CERN webpage */
-function checkNetConnection() {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            if (!isNetworkConnected) {
-                checkSession();
-                isNetworkConnected = true;
-            }
-        } else {
-            isNetworkConnected = false;
-            chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-        }
-    };
-    httpRequest.open("GET", NET_CHECK_DOMAIN, true);
-    httpRequest.send();
-}
-
 // Add the listener for tab updates
 chrome.tabs.onUpdated.addListener(updateListener);
 
-// Check session once when the browser is launched
-checkSession();
+// Check session once when the browser is launched and then after every minute
+chrome.alarms.create("checkSessionAlarm", {when: Date.now(), periodInMinutes: 1});
+chrome.alarms.onAlarm.addListener(function () {
+    checkSession();
+});
 
 

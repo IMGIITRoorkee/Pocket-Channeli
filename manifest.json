@@ -14,11 +14,12 @@
     "128": "images/icon128.png"
   },
   "permissions": [
+    "alarms",
     "tabs",
     "https://channeli.in/*"
   ],
   "browser_action": {
-    "default_icon": "images/icon_inactive.png",
+    "default_icon": "images/icon_active.png",
     "default_popup": "popup.html",
     "default_name": "Channel-i"
   }
