@@ -24,11 +24,13 @@ body {
     margin-bottom: 0;
 }
 
-#loader, #login, #main {
+#loader {
     height: 100%;
 }
 
 #main {
+    display: none;
+
     padding: 8px;
 }
 
