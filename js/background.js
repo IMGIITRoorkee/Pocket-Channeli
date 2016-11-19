@@ -1,6 +1,6 @@
 /* This script runs in the background from when the app is loaded */
 
-var NET_CHECK_DOMAIN = "http://info.cern.ch/";
+var NET_CHECK_DOMAIN = "https://channeli.in:8080/";
 var DOMAIN = "https://channeli.in";
 var HOST = "channeli.in";
 

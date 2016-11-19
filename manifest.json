@@ -15,8 +15,7 @@
   },
   "permissions": [
     "tabs",
-    "https://channeli.in/*",
-    "http://info.cern.ch/*"
+    "https://channeli.in/*"
   ],
   "browser_action": {
     "default_icon": "images/icon_inactive.png",
