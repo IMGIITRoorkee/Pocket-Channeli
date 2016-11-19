@@ -46,38 +46,38 @@ function checkSessionAndLoad() {
     var url = DOMAIN + "/lectut_api/";
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            setDisplayNone(loader);
-            var response = JSON.parse(httpRequest.responseText);
-            console.log(response);
-            var userType = response.userType;
-            console.log(userType);
-            var userUsername, userName, userPhoto;
-            if (userType == 0) {
-                // Logged in
-                chrome.browserAction.setIcon({path: "../images/icon_active.png"});
-                // Update the popup view
-                userUsername = response.user.username;
-                userName = response.user.name;
-                userPhoto = DOMAIN + response.user.photo;
-                setDisplayBlock(main);
-                loadCard(userName, userUsername, userPhoto);
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                setDisplayNone(loader);
+                var response = JSON.parse(httpRequest.responseText);
+                var userType = response.userType;
+                var userUsername, userName, userPhoto;
+                if (userType == 0) {
+                    // Logged in
+                    chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+                    // Update the popup view
+                    userUsername = response.user.username;
+                    userName = response.user.name;
+                    userPhoto = DOMAIN + response.user.photo;
+                    setDisplayBlock(main);
+                    loadCard(userName, userUsername, userPhoto);
+                } else {
+                    // Not logged in
+                    chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+                    // Update the popup view
+                    userUsername = "IMG, IIT Roorkee";
+                    userName = "Channel i";
+                    userPhoto = "~";
+                    setDisplayBlock(main);
+                    loadCard(userName, userUsername, userPhoto);
+                }
             } else {
-                // Not logged in
+                // Failure
                 chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
                 // Update the popup view
-                userUsername = "IMG, IIT Roorkee";
-                userName = "Channel i";
-                userPhoto = "~";
-                setDisplayBlock(main);
-                loadCard(userName, userUsername, userPhoto);
+                setDisplayBlock(loader);
+                setDisplayNone(main);
             }
-        } else {
-            // Failure
-            chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-            // Update the popup view
-            setDisplayBlock(loader);
-            setDisplayNone(main);
         }
     };
     httpRequest.open("GET", url, true);

@@ -40,40 +40,28 @@ function checkSession() {
     var url = DOMAIN + "/lectut_api/";
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-            var response = JSON.parse(httpRequest.responseText);
-            var userType = response.userType;
-            if (userType == 0) {
-                // Logged in
-                isUserLoggedIn = true;
-                chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                var userType = response.userType;
+                if (userType == 0) {
+                    // Logged in
+                    isUserLoggedIn = true;
+                    chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+                } else {
+                    // Not logged in
+                    isUserLoggedIn = false;
+                    chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+                }
             } else {
                 // Not logged in
                 isUserLoggedIn = false;
                 chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             }
-        } else {
-            // Not logged in
-            isUserLoggedIn = false;
-            chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
         }
     };
     httpRequest.open("GET", url, true);
     httpRequest.send();
-    /*
-     $.get(url, function (data) {
-     var userType = data.userType;
-     if (userType == 0) {
-     // Logged in
-     isUserLoggedIn = true;
-     chrome.browserAction.setIcon({path: "../images/icon_active.png"});
-     } else {
-     // Not logged in
-     isUserLoggedIn = false;
-     chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-     }
-     });
-     */
 }
 
 /** Check if the user is connected to the Internet by contacting the CERN webpage */
@@ -92,17 +80,6 @@ function checkNetConnection() {
     };
     httpRequest.open("GET", NET_CHECK_DOMAIN, true);
     httpRequest.send();
-    /*
-     $.get(NET_CHECK_DOMAIN, {}, function () {
-     if (!isNetworkConnected) {
-     checkSession();
-     isNetworkConnected = true;
-     }
-     }).fail(function () {
-     isNetworkConnected = false;
-     chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-     });
-     */
 }
 
 // Add the listener for tab updates
