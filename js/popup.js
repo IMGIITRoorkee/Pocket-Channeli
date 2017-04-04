@@ -52,7 +52,7 @@ function checkSessionAndLoad() {
                 var response = JSON.parse(httpRequest.responseText);
                 var userType = response.userType;
                 var userUsername, userName, userPhoto;
-                if (userType == 0) {
+                if (userType === 0) {
                     // Logged in
                     chrome.browserAction.setIcon({path: "../images/icon_active.png"});
                     // Update the popup view
@@ -87,6 +87,7 @@ function checkSessionAndLoad() {
 /** Take the user to the Channel-i login when the login button is clicked */
 function loginListener() {
     chrome.tabs.create({url: DOMAIN + "/login/"});
+    syncItems();
 }
 
 /** Send a GET request to the logout endpoint which invalidates the session */
@@ -96,7 +97,7 @@ function logoutListener() {
     httpRequest.onreadystatechange = function () {
         chrome.tabs.query({}, function (tabs) {
             for (var i = 0; i < tabs.length; i++) {
-                if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
+                if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) === HOST) {
                     chrome.tabs.reload(tabs[i].id, {bypassCache: true});
                 }
             }
@@ -105,6 +106,7 @@ function logoutListener() {
     };
     httpRequest.open("GET", url, true);
     httpRequest.send();
+    syncItems();
 }
 
 document.addEventListener("DOMContentLoaded", function () {

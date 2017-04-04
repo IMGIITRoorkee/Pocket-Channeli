@@ -7,15 +7,15 @@ var isUserLoggedIn = undefined;
 
 /**
  * Check session if the changed tab was one of Channel-i
- * @param tabId - the ID of the tab that is changing or has changed
+ * @param ignore - the ID of the tab that is changing or has changed
  * @param changeInfo - whether the tab is changing or has changed
  * @param tab - the tab that is changing or has changed
  */
-function updateListener(tabId, changeInfo, tab) {
+function updateListener(ignore, changeInfo, tab) {
     var url = tab.url;
     if (url !== undefined && changeInfo.status === "complete") {
         var host = getHostName(url);
-        if (host == HOST) {
+        if (host === HOST) {
             checkSession();
         }
     }
@@ -42,7 +42,7 @@ function checkSession() {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
                 var userType = response.userType;
-                if (userType == 0) {
+                if (userType === 0) {
                     // Logged in
                     isUserLoggedIn = true;
                     chrome.browserAction.setIcon({path: "../images/icon_active.png"});
@@ -58,9 +58,10 @@ function checkSession() {
             }
             console.log(oldUserStatus + " ~ " + isUserLoggedIn);
             if (oldUserStatus !== isUserLoggedIn) {
+                syncItems();
                 chrome.tabs.query({}, function (tabs) {
                     for (var i = 0; i < tabs.length; i++) {
-                        if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) == HOST) {
+                        if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) === HOST) {
                             chrome.tabs.reload(tabs[i].id, {bypassCache: true});
                         }
                     }
