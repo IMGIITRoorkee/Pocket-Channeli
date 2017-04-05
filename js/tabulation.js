@@ -28,7 +28,7 @@ function populateTable(table_id, items) {
                 "<td class=\'selectable\'>\n        " +
                 "<a href=\'" + href + "\'>\n            " +
                 "<img src=\'" + icon + "\' class=\'ui image app-icon\'>\n            " +
-                "<span class=\'app-name\'>" + name + "</span>\n        " +
+                "<span>" + name + "</span>\n        " +
                 "</a>\n    " +
                 "</td>\n";
         }
@@ -46,12 +46,5 @@ function populateTable(table_id, items) {
         }
     }
 
-    var anchors = document.getElementsByTagName("a");
-
-    for (var j = 0; j < anchors.length; j++) {
-        const anchor = anchors[j];
-        anchor.addEventListener("click", function () {
-            chrome.tabs.create({url: anchor.href})
-        });
-    }
+    setupAnchors();
 }

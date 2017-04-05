@@ -34,11 +34,39 @@ function activateTabs() {
     }
 }
 
+function setupAnchors() {
+    var anchors = document.getElementsByTagName("a");
+
+    for (var j = 0; j < anchors.length; j++) {
+        const anchor = anchors[j];
+        anchor.onclick = function () {
+            chrome.tabs.create({url: anchor.href})
+        };
+    }
+}
+
+function setupLogInOutButton() {
+    var logInOutButton = document.getElementById("log-in-out-button");
+    chrome.runtime.getBackgroundPage(function (backgroundPage) {
+        if (backgroundPage.userIsLoggedIn) {
+            logInOutButton.innerText = "Log out";
+            addClass(logInOutButton, "negative");
+            logInOutButton.href = DOMAIN + "/logout/";
+        } else {
+            logInOutButton.innerText = "Log in";
+            addClass(logInOutButton, "primary");
+            logInOutButton.href = DOMAIN + "/login/";
+        }
+        setupAnchors();
+    });
+}
+
 function firstThingsFirst() {
-    loadItems(createTables);
+    createTables();
     activateTabs();
+    setupLogInOutButton();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    firstThingsFirst();
+    loadItems(firstThingsFirst);
 });

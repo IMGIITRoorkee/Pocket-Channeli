@@ -3,15 +3,6 @@ body {
     background-color: #f2f2f2;
 }
 
-.centered-content {
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .app-icon {
     height: 25px;
     width: 25px;
@@ -28,19 +19,11 @@ body {
     padding: 8px;
 }
 
-#img-logo-img {
-    height: 125px;
-    width: 125px;
+.inline-block {
+    display: inline-block;
 }
 
-#user-photo {
-    height: 48px;
-    width: 48px;
-
-    margin-bottom: 0;
-}
-
-#channel-i-logo {
+#channel-i-logo-footer {
     height: 30px;
     width: 80px;
 }

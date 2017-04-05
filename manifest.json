@@ -5,6 +5,7 @@
   "version": "1.0",
   "background": {
     "scripts": [
+      "js/commons.js",
       "js/storage.js",
       "js/background.js"
     ]
