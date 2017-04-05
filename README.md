@@ -9,9 +9,9 @@ Download and install from [chrome web store](https://chrome.google.com/webstore/
 
 ## Screenshots
 
-![Logged out screenshot](screenshot_logged_out.jpg?raw=true)
+![Logged out screenshot](logged_out_screenshot.png?raw=true)
 
-![Logged in screenshot](screenshot_logged_in.jpg?raw=true)
+![Logged in screenshot](logged_in_screenshot.png?raw=true)
 
 
 ## Developer mode
