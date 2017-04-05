@@ -3,7 +3,7 @@
 var DOMAIN = "https://channeli.in";
 var HOST = "channeli.in";
 
-var isUserLoggedIn = undefined;
+var userIsLoggedIn = undefined;
 
 /**
  * Check session if the changed tab was one of Channel-i
@@ -34,7 +34,7 @@ function getHostName(href) {
 
 /** Check if the user is logged in by performing a request on the LecTut API */
 function checkSession() {
-    var oldUserStatus = isUserLoggedIn;
+    var oldUserStatus = userIsLoggedIn;
     var url = DOMAIN + "/lectut_api/";
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
@@ -44,20 +44,21 @@ function checkSession() {
                 var userType = response.userType;
                 if (userType === "0") {
                     // Logged in
-                    isUserLoggedIn = true;
+                    userIsLoggedIn = true;
                     chrome.browserAction.setIcon({path: "../images/icon_active.png"});
                 } else {
                     // Not logged in
-                    isUserLoggedIn = false;
+                    userIsLoggedIn = false;
                     chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
                 }
             } else {
                 // Not logged in
-                isUserLoggedIn = false;
+                userIsLoggedIn = false;
                 chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             }
-            if (oldUserStatus !== isUserLoggedIn) {
+            if (oldUserStatus !== userIsLoggedIn) {
                 syncItems();
+                setupLogInOutButton();
                 chrome.tabs.query({}, function (tabs) {
                     for (var i = 0; i < tabs.length; i++) {
                         if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) === HOST) {
