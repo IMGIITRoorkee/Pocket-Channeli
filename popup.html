@@ -12,46 +12,42 @@
     <link rel="stylesheet" type="text/css" href="http://semantic-ui.com/dist/semantic.min.css">
     <!-- Custom CSS to cascade on Semantic UI CSS -->
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/commons.js" defer></script>
+    <script type="text/javascript" src="js/storage.js" defer></script>
+    <script type="text/javascript" src="js/tabulation.js" defer></script>
+    <script type="text/javascript" src="js/apps.js" defer></script>
+    <script type="text/javascript" src="js/games.js" defer></script>
+    <script type="text/javascript" src="js/img_tools.js" defer></script>
 </head>
 
 <body>
-
-<!-- Spinner to display when loading -->
-<div id="loader">
-    <div class="centered-content">
-        <img src="images/loading.gif" alt="Loading" id="loading-gif">
-    </div>
-</div>
-
-<!-- The 'Login' button appears when not logged in on Channel-i -->
-<!-- Removed due to lack of use
-<div id="login">
-    <div class="centered-content">
-        <img src="images/img_logo.png" alt="IMG" class="ui image" id="img-logo-img">
-        <div class="ui labeled icon button" id="login-button">
-            <i class="sign in icon"></i>Log in
-        </div>
-    </div>
-</div>
--->
-
 <!-- The profile and links appear when logged in on Channel-i-->
 <div id="main">
-    <div class="ui fluid card">
-        <div class="content">
-            <img src="" alt="" class="ui right floated circular image" id="user-photo">
-            <div class="header" id="user-name"></div>
-            <div class="meta" id="user-username"></div>
-        </div>
-        <div class="extra content">
-            <div class="ui labeled icon button" id="log-button">
-            </div>
-        </div>
+    <div class="ui top attached tabular menu">
+        <div class="active item" data-tab="apps">Apps</div>
+        <div class="item" data-tab="games">Games</div>
+        <div class="item" data-tab="img-tools" id="img-tools-tab">IMG tools</div>
     </div>
-    <table class="ui unstackable celled table">
-        <tbody id="links-table-body">
-        </tbody>
-    </table>
+    <div class="ui bottom attached active tab segment" data-tab="apps">
+        <table class="ui unstackable celled table">
+            <tbody id="apps-tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="games">
+        <table class="ui unstackable celled table">
+            <tbody id="games-tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="img-tools" id="img-tools-content">
+        <table class="ui unstackable celled table">
+            <tbody id="img-tools-tbody">
+            </tbody>
+        </table>
+    </div>
     <div class="ui divider"></div>
     <a href="https://channeli.in/">
         <img src="images/channel-i-logo.png" alt="Channel-i" class="ui middle aligned image" id="channel-i-logo">
@@ -64,9 +60,5 @@
     <p>It's everything you need it to be.</p>
 </div>
 </body>
-
-<!-- Custom JS -->
-<script type="text/javascript" src="js/popup.js"></script>
-<script type="text/javascript" src="js/apps.js"></script>
 
 </html>

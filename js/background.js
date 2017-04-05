@@ -42,7 +42,7 @@ function checkSession() {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
                 var userType = response.userType;
-                if (userType === 0) {
+                if (userType === "0") {
                     // Logged in
                     isUserLoggedIn = true;
                     chrome.browserAction.setIcon({path: "../images/icon_active.png"});
@@ -56,7 +56,6 @@ function checkSession() {
                 isUserLoggedIn = false;
                 chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             }
-            console.log(oldUserStatus + " ~ " + isUserLoggedIn);
             if (oldUserStatus !== isUserLoggedIn) {
                 syncItems();
                 chrome.tabs.query({}, function (tabs) {

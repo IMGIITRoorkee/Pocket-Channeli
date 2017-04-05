@@ -1,5 +1,5 @@
 body {
-    width: 400px;
+    width: 500px;
     background-color: #f2f2f2;
 }
 
@@ -24,19 +24,8 @@ body {
     margin-bottom: 0;
 }
 
-#loader {
-    height: 100%;
-}
-
 #main {
-    display: none;
-
     padding: 8px;
-}
-
-#loading-gif {
-    height: 16px;
-    width: 16px;
 }
 
 #img-logo-img {

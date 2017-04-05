@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "Pocket Channel-i",
-  "description": "A gateway to Channel-i ever present in your browser",
+  "name": "Pocket Channel i",
+  "description": "A gateway to Channel i ever present in your browser",
   "version": "1.0",
   "background": {
     "scripts": [
+      "js/storage.js",
       "js/background.js"
     ]
   },
@@ -16,12 +17,13 @@
   "permissions": [
     "alarms",
     "storage",
+    "cookies",
     "tabs",
     "https://channeli.in/*"
   ],
   "browser_action": {
     "default_icon": "images/icon_active.png",
     "default_popup": "popup.html",
-    "default_name": "Channel-i"
+    "default_name": "Channel i"
   }
 }
