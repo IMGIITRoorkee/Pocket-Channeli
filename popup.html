@@ -1,51 +1,70 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <title>Channel-i</title>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="description" content="">
-  <meta charset="utf-8">
-  <link href='css/popup.css' rel='stylesheet' type='text/css'>
-  <style>
-    #user_box, #login, #main {
-      display:none;
-    }
-  </style>
+    <title>Channel-i</title>
+
+    <meta name="description" content="A gateway to Channel-i ever present in your browser">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="http://semantic-ui.com/dist/semantic.min.css">
+    <!-- Custom CSS to cascade on Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/commons.js" defer></script>
+    <script type="text/javascript" src="js/storage.js" defer></script>
+    <script type="text/javascript" src="js/tabulation.js" defer></script>
+    <script type="text/javascript" src="js/apps.js" defer></script>
+    <script type="text/javascript" src="js/games.js" defer></script>
+    <script type="text/javascript" src="js/img_tools.js" defer></script>
 </head>
 
 <body>
-  <div id="loader">
-    <img src="images/loading_transparent.gif" alt="loading_gif" />
-  </div>
-  <div id="message">
-    <!-- Warning/Info message area -->
-  </div>
-  <div id="user_box">
-    <div id="profile_box">
-      <!-- Profile info area -->
+<!-- The profile and links appear when logged in on Channel-i-->
+<div id="main">
+    <div class="ui top attached tabular menu">
+        <div class="active item" data-tab="apps">Apps</div>
+        <div class="item" data-tab="games">Games</div>
+        <div class="item" data-tab="img-tools" id="img-tools-tab">IMG tools</div>
     </div>
-    <div id="loggedin">
-      <button id="logout_btn">Logout</button>
+    <div class="ui bottom attached active tab segment" data-tab="apps">
+        <table class="ui unstackable celled table">
+            <tbody id="apps-tbody">
+            </tbody>
+        </table>
     </div>
-  </div>
-  <div id="login">
-    <form id="login_form" method="POST">
-      <input type="text" class="field" id="username_field" name="username" value="" placeholder="Username" required/>
-      <input type="password" class="field" id="password_field" name="password" value="" placeholder="Password" required/>
-      <input type="submit" id="submit" value="">
-    </form>
-  </div>
-  <div id="main">
-    <!-- Main apps box -->
-  </div>
-
-  <a href="https://www.facebook.com/IMGIITRoorkee" target="_blank" id="footer">
-    <img style="position: absolute;right: 14px;bottom: 10px;width:40px;height: 	40px;" src="images/img_logo.png">
-  </a>
-
-  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-  <script type="text/javascript" src="js/popup.js"></script>
+    <div class="ui bottom attached tab segment" data-tab="games">
+        <table class="ui unstackable celled table">
+            <tbody id="games-tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="img-tools" id="img-tools-content">
+        <table class="ui unstackable celled table">
+            <tbody id="img-tools-tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="ui divider"></div>
+    <div>
+        <div class="inline-block">
+            <a href="https://channeli.in/">
+                <img src="images/channel-i-logo.png" alt="Channel-i" class="ui middle aligned image"
+                     id="channel-i-logo-footer">
+            </a>
+            &nbsp;&nbsp;by&nbsp;&nbsp;
+            <a href="https://www.facebook.com/IMGIITRoorkee/">
+                <img src="images/img_logo.png" alt="IMG" class="ui middle aligned image" id="img-logo-footer">
+            </a>
+            <p></p>
+            <p>It's everything you need it to be.</p>
+        </div>
+        <a class="ui button right floated" id="log-in-out-button">Log ?</a>
+    </div>
+</div>
 </body>
 
 </html>

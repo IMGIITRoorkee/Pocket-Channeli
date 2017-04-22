@@ -1,26 +1,30 @@
 {
   "manifest_version": 2,
-
-  "name": "Pocket Channel-i",
-  "description": "Channel i is built around the idea that you must be close to what you need. Stay close, Stay updated.",
+  "name": "Pocket Channel i",
+  "description": "A gateway to Channel i ever present in your browser",
   "version": "1.0",
   "background": {
-	"scripts": ["js/jquery-1.9.1.js", "js/background.js"]
+    "scripts": [
+      "js/commons.js",
+      "js/storage.js",
+      "js/background.js"
+    ]
   },
-
-  "icons": { "16": "images/icon16.png",
-           "48": "images/icon48.png",
-          "128": "images/icon128.png" },
-
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
   "permissions": [
+    "alarms",
+    "storage",
+    "cookies",
     "tabs",
     "https://channeli.in/*"
-  ],	
-
+  ],
   "browser_action": {
-    "default_icon": "images/icon_inactive.png",
+    "default_icon": "images/icon_active.png",
     "default_popup": "popup.html",
-    "default_name": "Channel-i"
-    
+    "default_name": "Channel i"
   }
 }

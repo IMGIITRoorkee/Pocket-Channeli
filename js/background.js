@@ -1,80 +1,85 @@
 /* This script runs in the background from when the app is loaded */
 
-var Domain = "https://channeli.in";
-var Host = "channeli.in";
+var DOMAIN = "https://channeli.in";
+var HOST = "channeli.in";
 
-var getDomainName = function (href) {
-  var l = document.createElement("a");
-  l.href = href;
-  return l.hostname;
+var userIsLoggedIn = undefined;
+
+/**
+ * Check session if the changed tab was one of Channel-i
+ * @param ignore - the ID of the tab that is changing or has changed
+ * @param changeInfo - whether the tab is changing or has changed
+ * @param tab - the tab that is changing or has changed
+ */
+function updateListener(ignore, changeInfo, tab) {
+    var url = tab.url;
+    if (url !== undefined && changeInfo.status === "complete") {
+        var host = getHostName(url);
+        if (host === HOST) {
+            checkSession();
+        }
+    }
 }
 
-var checkSession = function() {
-  var url = Domain + "/check-session/";
-  $.post(url, function(res){
-    if(res.msg == "YES") {
-      chrome.browserAction.setIcon({path: "../images/icon_active.png"});	
-    }
-    else if(res.msg == "NO") {
-      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-    }
-  });
+/**
+ * Get the host name from a given URL
+ * @param href - the URL taken from the address bar
+ * @returns {string} hostname - the host name extracted from the URL
+ */
+function getHostName(href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l.hostname;
 }
 
-// This is to handle the status updation when the app is "loaded" or "refreshed". 
-checkSession(); 
-
-/* Updates the status especially when the 'channeli.in' tabs are updated */
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  var tab_url = tab.url;
-  var domain = getDomainName(tab_url);
-  if (tab_url !== undefined && changeInfo.status == "complete") {
-    if(domain == Host) {
-      checkSession();
-      /*****************************************************************************************
-      //TODO: When more than one tab from 'channel.in' domain are active, then logging out
-      //      from channeli in one tab should automatically make other tabs from the same  
-      //      domain to refresh along with the extension.
-
-      chrome.tabs.query({}, function (tabs) {
-          var _tabs = [];
-          for (var i = 0; i < tabs.length; i++) {
-            if(getDomainName(tabs[i].url) == Host)
-            {
-              if(tabs[i].id == tabId) continue; 
-              else {
-                _tabs.push(tabs[i].id);
-              }
+/** Check if the user is logged in by performing a request on the LecTut API */
+function checkSession() {
+    var oldUserStatus = userIsLoggedIn;
+    var url = DOMAIN + "/lectut_api/";
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                var userType = response.userType;
+                if (userType === "0") {
+                    // Logged in
+                    userIsLoggedIn = true;
+                    chrome.browserAction.setIcon({path: "../images/icon_active.png"});
+                } else {
+                    // Not logged in
+                    userIsLoggedIn = false;
+                    chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
+                }
+            } else {
+                // Not logged in
+                userIsLoggedIn = false;
+                chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
             }
-          }
-          for(var j = 0; j < _tabs.length; j++)
-          {
-            
-            chrome.tabs.reload(_tabs[j]);
-          }
-      });
-      ******************************************************************************************/
-    }
-  }
-}); 
+            if (oldUserStatus !== userIsLoggedIn) {
+                syncItems();
+                setupLogInOutButton();
+                chrome.tabs.query({}, function (tabs) {
+                    for (var i = 0; i < tabs.length; i++) {
+                        if (chrome.extension.getBackgroundPage().getHostName(tabs[i].url) === HOST) {
+                            chrome.tabs.reload(tabs[i].id, {bypassCache: true});
+                        }
+                    }
+                });
+            }
+        }
+    };
+    httpRequest.open("GET", url, true);
+    httpRequest.send();
+}
 
-var NetworkStatus = 0; /* 0 - offline, 1 - online */
+// Add the listener for tab updates
+chrome.tabs.onUpdated.addListener(updateListener);
 
-  /* Checks Network Connection Status */
-  var checkNetConnection = function() {
-    $.get(Domain, {}, function(res){
-      if(NetworkStatus == 0) {
-        checkSession();
-        NetworkStatus = 1;
-      }
-    })
-    .fail( function(res) {
-      NetworkStatus = 0;
-      chrome.browserAction.setIcon({path: "../images/icon_inactive.png"});
-    });
-  }
-
-/* Checks the network status per every 3 seconds */
-setInterval(checkNetConnection, 3000);
+// Check session once when the browser is launched and then after every minute
+chrome.alarms.create("checkSessionAlarm", {when: Date.now(), periodInMinutes: 1});
+chrome.alarms.onAlarm.addListener(function () {
+    checkSession();
+});
 
 
